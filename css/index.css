@@ -1,0 +1,57 @@
+*{margin: 0;padding: 0;}
+
+.content-box h3{
+    padding:10px 0;
+    border-bottom: 3px solid #ccc;
+}
+
+.search-1{
+    padding: 10px 0px 20px 0px;
+    font-size: 15px; 
+}
+
+.search-text{
+    padding: 10px 20px 0 20px;
+    border: 2px solid #ccc;
+}
+
+.search-1 input{
+    padding:5px ;
+}
+
+.search-box{
+    padding-bottom: 20px;
+}
+
+.input-texts{
+    float: right;
+    padding-right: 20%;
+}
+
+.main-text {
+    margin: 20px 0 0 0;
+    border: 2px solid #ccc;
+}
+.main-text input{
+    padding:5px 0;
+    width:90%;
+}
+.main-text  div{
+    margin:15px 0;
+}
+.btn-danger{
+    padding: 6px 20px;
+}
+.btn-primary{
+    float: right;
+}
+input::placeholder{
+    text-indent: 2px;
+}
+.main-text p{
+    margin: 0;
+}
+
+#btns{
+    padding: 8px 20px;
+}
