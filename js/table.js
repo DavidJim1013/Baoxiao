@@ -6,13 +6,24 @@ $(function(){
         url:"http://localhost:8081/getdata",
         dataType:"json",         
         success:(b)=>{
+            var odiv=document.createElement("div")
+            var oimg=document.createElement("img")
+            var sssarr=[]
             for (let i = 0; i < b.length; i++) {
                 delete b[i]._id
-                
-                var ipath=document.createElement("td")
-                imgpath = b[i].picpath
+                var oderdiv=document.querySelector(".sss")
+                sssarr.push(b[i].picpath)
                 delete b[i].picpath
-                ipath.innerHTML='<a href="' + imgpath + '"target="_blank"> 查看凭证 '  
+
+                odiv.appendChild(oimg)
+                oderdiv.appendChild(odiv)        
+                var ipath=document.createElement("td")
+                ipath.className="ipas"
+                
+                var imgpath = b[i].picpath
+                console.log(imgpath)
+                
+                ipath.innerHTML='<strong>查看凭证</strong>'
                 
                 var tr=document.createElement("tr")
                 tobd.appendChild(tr) 
@@ -30,6 +41,17 @@ $(function(){
                 td.innerHTML="<select>" + "<option>"+restf+"</option>"+"<option>审批通过</option><option>驳回</option>"
                 tr.appendChild(td)
             }
+
+            var a=document.querySelectorAll("strong")
+            console.log(a)
+            for (let i = 0; i < a.length; i++) {
+                a[i].onclick=function(){
+                    var sss=document.querySelector(".sss")
+                    sss.style.display="block"
+                    oimg.src=sssarr[i]
+                }
+            }
+
             $(".btn").click(function(){
                 var ass=[]
                 var app=[]

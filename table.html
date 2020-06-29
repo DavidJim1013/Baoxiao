@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/table.css">
+    <link rel="stylesheet" type="text/css" href="./css/table.css">
 </head>
 <body>
     <div class="container">
@@ -17,11 +17,22 @@
             <thead>
                 <tr><td>报销人</td><td>报销单号</td><td>金额</td><td>报销状态</td><td>查看凭证</td><td>操作</td></tr>
             </thead>
-            <tbody class="tob">     
+            <tbody class="tob">   
+                <div class="sss">
+                    <div id="btnnone">
+                        关闭
+                    </div>
+            </div>   
             </tbody>
         </table>
         <div class="change"><button type="button" class="btn btn-outline-primary">确认修改</button></div>
     </div>
-    <script src="js/table.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/table.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $("#btnnone").click(function(){
+            var sss=document.querySelector(".sss")
+                    sss.style.display="none"
+        })
+    </script>
 </body>
 </html>
