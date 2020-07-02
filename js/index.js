@@ -6,7 +6,17 @@ data = request.responseText;
 jsondata = JSON.parse(data);
 url = jsondata["url"]
 
-$("#addbtn").click(() => {
+$("#addbtn").click(() =>
+    search()
+)
+
+function searchEnter(){
+    if(event.keyCode ==13){
+        search()
+    }
+}
+
+function search(){
     $.ajax({
         type: "post",
         url: url+"getadd",
@@ -31,9 +41,9 @@ $("#addbtn").click(() => {
             }
         }
     })
-})
+}
 
-$("#btns").click(() => {
+function submit(){
     var texts = {
         name: $("#text1").val(),
         oodnumber: $("#text2").val(),
@@ -81,6 +91,7 @@ $("#btns").click(() => {
         success: (e) => {
             if (e == "0") {
                 alert("上传成功")
+                window.onload()
             } else if (e == "1") {
                 alert("报销单号已存在")
             } else if (e == "2") {
@@ -89,4 +100,15 @@ $("#btns").click(() => {
         }
     })
     }
+}
+
+
+$("#btns").click(() => {
+    submit()
 })
+
+function enter(){
+    if(event.keyCode ==13){
+        submit()
+    }
+}
