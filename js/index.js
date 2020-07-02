@@ -14,7 +14,7 @@ $("#addbtn").click(() => {
                     for (const k in res[i]) {
                         add.push(res[i][k])
                     }
-                    for (let j = 0; j < add.length; j++) {
+                    for (let j = 0; j < add.length-1; j++) {
                         if(j==2){
                             inputTexts[j].innerHTML = '¥'+add[j]
                         }else inputTexts[j].innerHTML = add[j]

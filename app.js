@@ -5,22 +5,9 @@ const path = require('path');
 const MongoClient = require("mongodb").MongoClient;
 const dburl = "mongodb://localhost:27017";
 var fs = require("fs");
-// const { Console } = require("console");
+const e = require("express");
 const dbName = "baoxiao"
 app.use(express.static('./'));
-
-
-app.get("/", (req, res) => {
-    fs.readFile("./index.html", "utf-8", (err, data) => {
-        res.send(data)
-    })
-})
-
-app.get("/s", (req, res) => {
-    fs.readFile("./table.html", "utf-8", (err, data) => {
-        res.send(data)
-    })
-})
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -32,6 +19,7 @@ var storage = multer.diskStorage({
 })
 var upload = multer({storage : storage})
 
+//查询报销状态
 app.post("/getadd", (req, res) => {
     var d
     req.on("data", (num) => {
@@ -74,7 +62,6 @@ app.post("/getval",(req,res)=>{
     req.on("data", (postvalue) => {
         jsondbs = JSON.parse(postvalue)
     })
-    //监听响应
     MongoClient.connect(dburl, { useUnifiedTopology: true }, (err, client) => {
         if (err) {
             console.log(err)
@@ -113,63 +100,131 @@ app.post("/getval",(req,res)=>{
     
 })
 
-app.post("/getdata",(req,res)=>{
-   
-        MongoClient.connect(dburl, { useUnifiedTopology: true }, (err, client) => {
-            if (err) {
-                console.log(err)
-                return
-            }
-            let db = client.db(dbName)
-            db.collection("baoxiao").find({}).toArray((err, reust) => {
+//显示页面
+app.post("/getdata",async (req,res)=>{ 
+    var jsondbs = ""
+    req.on("data", (postvalue) => {
+        jsondbs = JSON.parse(postvalue)
+        console.log(jsondbs)
+    })
+    MongoClient.connect(dburl, { useUnifiedTopology: true }, async (err, client) => {
+        if (err) {
+            console.log(err)
+            return
+        }
+        let db = client.db(dbName)
+        var d = parseInt(jsondbs.currentpage)
+        var f = parseInt(jsondbs.itemsPage)
+        var g = parseInt(jsondbs.conunts)
+        function gets(){
+            db.collection("baoxiao").find({'restf':"驳回"}).limit(f).skip((d-1)*f).toArray(async(err,result)=>{
                 if (err) {
                     console.log(err)
                     return
                 }
-                console.log(reust)
-                res.send(reust)
+                console.log(result)
+                let count = await db.collection("baoxiao").find({'restf':"驳回"}).count()
+            let datass = {count:count,result}
+            client.close()
+            res.send(datass)
             })
+        }
+        function gets2(){
+            db.collection("baoxiao").find({'restf':"未审核"}).limit(f).skip((d-1)*f).toArray(async(err,result)=>{
+                if (err) {
+                    console.log(err)
+                    return
+                }
+                console.log(result)
+                let count = await db.collection("baoxiao").find({'restf':"未审核"}).count()
+            let datass = {count:count,result}
+            client.close()
+            res.send(datass)
+            })
+        }
+        function gets3(){
+            db.collection("baoxiao").find({'restf':"审批通过"}).limit(f).skip((d-1)*f).toArray(async(err,result)=>{
+                if (err) {
+                    console.log(err)
+                    return
+                }
+                console.log(result)
+                let count = await db.collection("baoxiao").find({'restf':"审批通过"}).count()
+            let datass = {count:count,result}
+            client.close()
+            res.send(datass)
+            })
+        }
+       function getstow(){
+        db.collection("baoxiao").find({}).limit(f).skip((d-1)*f).toArray(async (err, result) => {
+            if (err) {
+                console.log(err)
+                return
+            }
+            let count = await db.collection("baoxiao").find().count()
+             
+            let datas = {count:count,result}
+            client.close()
+            res.send(datas)
         })
+       }
+       //全部
+       if(g==0){
+        getstow()
+        return
+       }
+       //驳回
+       else if(g==1){
+        gets()
+        return
+       }
+       //未审批
+       else if(g==2){
+        gets2()
+        return
+       }
+       //审批通过
+       else if(g==3){
+        gets3()
+        return
+       }  else{
+        res.send("0")
+       }
+      
+    })
     
 })
 
+//更新报销状态
 app.post("/updata",(req,res)=>{
     var s = ""
     var jsondbs = ""
     req.on("data", (postvalue) => {
-        s += postvalue
+        s = postvalue
         // console.log(s)
     })
     req.on("end", () => {
         // console.log(jsondbs)      
-        MongoClient.connect(dburl, { useUnifiedTopology: true }, (err, client) => {
+        MongoClient.connect(dburl, { useUnifiedTopology: true}, async (err, client) => {
             jsondbs = JSON.parse(s);
             var  ass=[]
-            var  add=[]
+            var  app=[]
             ass=jsondbs.ass1
-            add=jsondbs.app1
+            app=jsondbs.app1
             let db = client.db(dbName)
             for(var i=0;i<ass.length;i++){
-                console.log(ass.length)
-                if (err) {
-                    console.log(err)
-                }
-                var  dbtab={'oodnumber':ass[i]}
-                var updateStr={$set: {"restf":add[i]}};
-                console.log(updateStr)
-                db.collection("baoxiao").updateOne(dbtab, updateStr, function(err, res) {
-                    if (err) {
-                        console.log(err)        
-                    }
-                    console.log("文档更新成功");
-                })
+                var dbtab={'oodnumber':ass[i]}
+                var updateStr={$set: {"restf":app[i]}};
+                await db.collection("baoxiao").updateOne(dbtab, updateStr)
+                console.log("文档更新成功");
             }
-            //client.close()
+            client.close()
         })
     })
-    res.send("0")
+    res.send("0")    
 })
 
+//存储报销凭证
 app.post('/profile', upload.single('avatar'), function(req, res, next) {
     res.send({
       err: null,

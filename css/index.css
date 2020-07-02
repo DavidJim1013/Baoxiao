@@ -55,3 +55,6 @@ input::placeholder{
 #btns{
     padding: 8px 20px;
 }
+.notclick{
+    pointer-events: none;
+  }

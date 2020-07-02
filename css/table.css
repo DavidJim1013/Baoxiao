@@ -21,10 +21,11 @@ td{
     padding: 15px 0;
 }
 .sss{
+    z-index: 999;
+    position:fixed;
     width:70%;
     height:auto;
     background: #cccccc;
-    position:absolute;
     left:15%;
     display: none;
 }
@@ -34,7 +35,8 @@ td{
     height: 30px;
     color: #ffffff;
     position:absolute;
-    right: 0;z-index: 999;
+    right: 0;
+    z-index: 999;
     text-align: center;
     line-height: 30px;
 }
@@ -44,4 +46,10 @@ img{
 }
 strong{
     color: cornflowerblue;
+}
+.bot{
+    margin-top: 20px;
+}
+.nextprevious{
+    display: flex;
 }
