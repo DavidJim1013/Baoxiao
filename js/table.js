@@ -1,10 +1,10 @@
 var path = "config.json";
 var request = new XMLHttpRequest();
 request.open("GET", path, false);
-data = request.responseText;
-jsondata = JSON.parse(data);
+request.send();
+urldata = request.responseText;
+jsondata = JSON.parse(urldata);
 url = jsondata["url"]
-
 
 var page = 1
 var size = 10
