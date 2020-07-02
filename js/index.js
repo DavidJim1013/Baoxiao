@@ -1,7 +1,7 @@
 $("#addbtn").click(() => {
     $.ajax({
         type: "post",
-        url: "http://localhost:8081/getadd",
+        url: "http://guanli.daiweijian.cn/getadd",
         data: $("#addnums").val(),
         dataType: "json",
         success: (res) => {
@@ -50,7 +50,7 @@ $("#btns").click(() => {
     
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8081/profile',  
+        url: 'http://guanli.daiweijian.cn/profile',  
         data: formData,
         async: false,
         cache: false,
@@ -67,7 +67,7 @@ $("#btns").click(() => {
     })
     $.ajax({
         type: "post",
-        url: "http://localhost:8081/getval",
+        url: "http://guanli.daiweijian.cn/getval",
         data: JSON.stringify(texts),
         dataType: "json",
         success: (e) => {
