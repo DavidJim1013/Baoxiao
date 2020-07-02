@@ -11,7 +11,7 @@ var data = {
 
 $.ajax({
     type:"post",
-    url:"guanli.daiweijian.cn/getdata",
+    url:"http://baoxiao.daiweijian.cn/getdata",
     async:false,
     data:JSON.stringify(data),
     dataType:"json",         
@@ -32,7 +32,7 @@ function getData(size,page,datas){
     }
     $.ajax({
         type:"post",
-        url:"http://guanli.daiweijian.cn/getdata",
+        url:"http://baoxiao.daiweijian.cn/getdata",
         data:JSON.stringify(data),
         async:false,
         dataType:"json",         
@@ -242,7 +242,7 @@ $(".btn").click(function(){
     
     $.ajax({
         type:"post",
-        url:"http://guanli.daiweijian.cn/getdata",
+        url:"http://baoxiao.daiweijian.cn/getdata",
         async:false,
         data:JSON.stringify(data),
         dataType:"json",         
@@ -265,7 +265,7 @@ $(".btn").click(function(){
 
     $.ajax({
         type:"post",
-        url:"http://guanli.daiweijian.cn/updata",
+        url:"http://baoxiao.daiweijian.cn/updata",
         data:JSON.stringify(selections),
         async:false,
         dataType:"json",         
