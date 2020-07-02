@@ -1,3 +1,11 @@
+var path = "config.json";
+var request = new XMLHttpRequest();
+request.open("GET", path, false);
+data = request.responseText;
+jsondata = JSON.parse(data);
+url = jsondata["url"]
+
+
 var page = 1
 var size = 10
 var totalNum
@@ -11,7 +19,7 @@ var data = {
 
 $.ajax({
     type:"post",
-    url:"http://baoxiao.daiweijian.cn/getdata",
+    url:url+"getdata",
     async:false,
     data:JSON.stringify(data),
     dataType:"json",         
@@ -32,7 +40,7 @@ function getData(size,page,datas){
     }
     $.ajax({
         type:"post",
-        url:"http://baoxiao.daiweijian.cn/getdata",
+        url:url+"getdata",
         data:JSON.stringify(data),
         async:false,
         dataType:"json",         
@@ -242,7 +250,7 @@ $(".btn").click(function(){
     
     $.ajax({
         type:"post",
-        url:"http://baoxiao.daiweijian.cn/getdata",
+        url:url+"getdata",
         async:false,
         data:JSON.stringify(data),
         dataType:"json",         
@@ -265,7 +273,7 @@ $(".btn").click(function(){
 
     $.ajax({
         type:"post",
-        url:"http://baoxiao.daiweijian.cn/updata",
+        url:url+"updata",
         data:JSON.stringify(selections),
         async:false,
         dataType:"json",         

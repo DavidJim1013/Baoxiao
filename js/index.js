@@ -1,7 +1,15 @@
+var path = "config.json";
+var request = new XMLHttpRequest();
+request.open("GET", path, false);
+request.send();
+data = request.responseText;
+jsondata = JSON.parse(data);
+url = jsondata["url"]
+
 $("#addbtn").click(() => {
     $.ajax({
         type: "post",
-        url: "http://baoxiao.daiweijian.cn/getadd",
+        url: url+"getadd",
         data: $("#addnums").val(),
         dataType: "json",
         success: (res) => {
@@ -50,7 +58,7 @@ $("#btns").click(() => {
     
     $.ajax({
         type: 'POST',
-        url: 'http://baoxiao.daiweijian.cn/profile',  
+        url: url+'profile',  
         data: formData,
         async: false,
         cache: false,
@@ -67,7 +75,7 @@ $("#btns").click(() => {
     })
     $.ajax({
         type: "post",
-        url: "http://baoxiao.daiweijian.cn/getval",
+        url: url+"getval",
         data: JSON.stringify(texts),
         dataType: "json",
         success: (e) => {
