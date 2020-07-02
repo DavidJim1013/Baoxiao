@@ -91,7 +91,7 @@ function submit(){
         success: (e) => {
             if (e == "0") {
                 alert("上传成功")
-                window.onload()
+                location.replace(location)
             } else if (e == "1") {
                 alert("报销单号已存在")
             } else if (e == "2") {
