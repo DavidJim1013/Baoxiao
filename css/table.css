@@ -53,3 +53,15 @@ strong{
 .nextprevious{
     display: flex;
 }
+#pageNum{
+    width: 20px;
+    height: 20px;
+}
+.bhbtngrp{
+    margin: 10px 0 10px 0;
+}
+.bhbtngrp .btn{
+    width: 100px;
+    height: 40px;
+    padding: 0;
+}

@@ -8,14 +8,18 @@
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://ico.z01.com/zico.min.css">
     <link rel="stylesheet" type="text/css" href="http://baoxiao.daiweijian.cn/css/table.css">
 </head>
 <body>
     <div class="container">
         <h3>报销系统</h3>
         <table>
-            <div>
-                <button  id='bhbtn' >查询驳回</button> <button id='bhbtn2'>查询所有</button><button id='bhbtn3'>查询通过</button><button id='bhbtn4'>查询未审批</button>
+            <div class="bhbtngrp">
+                <button type="button" id='bhbtn2'class="btn btn-primary">查询所有</button>
+                <button type="button" id='bhbtn4'class="btn btn-secondary">查询未审批</button>
+                <button type="button" id='bhbtn' class="btn btn-danger">查询驳回</button>
+                <button type="button" id='bhbtn3'class="btn btn-success">查询通过</button>
             </div>
             <thead>
                 <tr><td>报销人</td><td>报销单号</td><td>金额</td><td>报销状态</td><td>查看凭证</td><td>操作</td></tr>
@@ -41,19 +45,19 @@
                 </div>
             </div>
             <div class="col-4">
-                <div  id="DataTables_Table_0_info" class="dataTables_info">显示第 1 至 10 项记录，共 项</div>
+                <div  id="DataTables_Table_0_info" class="dataTables_info">第 1 至 10 项记录，共 项</div>
             </div>
             <div  class="row justify-content-end col-4 nextprevious">
-                <a id="previousPage" class="prev disabled" href="#">← 上一页 </a>
+                <i class="zi zi_pathLeft" zico="向左指"></i> <a id="previousPage" class="" href="#">上一页 </a>
+                <a id="nextPage" class="next" href="#"> 下一页</a><i class="zi zi_pathRight" zico="向右指"></i>
                 <div id="page">
-                    <select id="pageNum"  onchange="search()">
-                        <option selected="selected" value="1">1</option>
-                    </select>
-                </div>
-                <a id="nextPage" class="next" href="#"> 下一页 → </a>        
+                    <a>第</a>
+                    <input type="text" id="pageNum" onkeydown="Topage()">
+                    <a>页</a>
+                </div>        
             </div>
         </div>
-        <div class="change"><button type="button" class="btn btn-outline-primary">确认修改</button></div>
+        <div class="change"><button type="button" id="confirm" class="btn btn-outline-primary">确认修改</button></div>
     </div>
     <script src="http://baoxiao.daiweijian.cn/js/table.js" type="text/javascript" charset="utf-8"></script>
 </body>

@@ -6,12 +6,12 @@ To do:
 1. 筛选 [x]
 2. 网站 [x]
 3. 数据库关闭 [x]
-4. 页码 []
+4. 页码 [x]
 
 
 ## 部署 deploy
 1. 环境 [x]
-2. config []
+2. config [x]
 3. nginx [x]
 
 

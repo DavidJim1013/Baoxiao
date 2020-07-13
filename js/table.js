@@ -84,7 +84,7 @@ function getData(size,page,datas){
                 tr.appendChild(ipath)
                 restf = b[i].restf
                 var td=document.createElement("td")
-                td.innerHTML="<select>"+"<option>"+restf+"</option>"+"<option>审批通过</option><option>驳回</option><option>未审批</option>"
+                td.innerHTML="<select>"+"<option>"+restf+"</option>"+"<option>审批通过</option><option>驳回</option>"
                 tr.appendChild(td)
             }
 
@@ -123,6 +123,24 @@ function research(v){
     getData(size,page,datas)
 }
 
+function Topage(){
+    if(event.keyCode == 13){
+        var newpage = $("#pageNum").val()
+        newpage = parseInt(newpage)
+        if (newpage == "" || newpage == null || isNaN(newpage)){
+            alert("页码输入有误")
+        }
+        else if (newpage < 1 || newpage > totalPage){
+            alert("页码输入有误")
+        }
+        else{
+            page = newpage
+            dataupdate()
+            $(".tob").empty()
+            getData(size,page,datas)
+        }
+    }
+}
 
 function bottomInf(){
     var pageNumBegin=(page-1)*size+1;
@@ -150,9 +168,11 @@ function bottomInf(){
     }
 
     document.getElementById("DataTables_Table_0_info").innerHTML=
-    " 显示第 "+pageNumBegin.toString()
+    pageNumBegin.toString()
     +" 至 "+pageNumEnd.toString()
-    +" 项记录，共 "+totalNum.toString()+" 项，"+ " 共 " + totalPage.toString() + " 页 "
+    +" 项记录，共 "+totalNum.toString()+" 项，"+ "共 " + totalPage.toString() + " 页 "
+
+    $("#pageNum").attr("placeholder",page)
 }
 
 function totalpageCount(){
@@ -238,12 +258,12 @@ $("#previousPage").click(function(){
 })
 
 
-$(".btn").click(function(){
+$("#confirm").click(function(){
     var ass=[]
     var app=[]
     var b
     var sel=document.querySelectorAll("select")
-    for (let i = 0; i < sel.length-2; i++) {
+    for (let i = 0; i < sel.length-1; i++) {
         var index = sel[i].selectedIndex;
         app.push(sel[i].options[index].value)  
     }
