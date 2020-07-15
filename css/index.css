@@ -28,7 +28,6 @@
 
 .input-texts {
   float: right;
-  padding-right: 20%;
 }
 
 .main-text {
@@ -47,10 +46,6 @@
 
 .btn-danger {
   padding: 6px 20px;
-}
-
-.btn-primary {
-  float: right;
 }
 
 input::placeholder {

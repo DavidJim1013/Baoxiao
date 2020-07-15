@@ -16,46 +16,50 @@
   <div class="container">
     <div class="content-box">
       <h3>报销系统</h3>
-      <div class="search-box">
-        <div class="search-1">
-          <span>查看报销单状态:</span>
-          <br>
-          <input type="text" class="col-8" placeholder="请输入报销单编号" id="addnums" onkeydown="searchEnter()">
-          <button type="button" class="btn btn-primary" id="addbtn" onclick="search()">查询</button>
-        </div>
-        <div class="search-text">
-          <p>申请报销人:<span class="input-texts"></span></p>
-          <p>报销单号:<span class="input-texts"></span></p>
-          <p>报销金额:<span class="input-texts"></span></p>
-          <p>报销状态:<span class="input-texts"></span></p>
+      <div id="status" class="alert alert-light" role="alert">
+        <h4 id="statusText" class="alert-heading">请输入报销单号</h4>
+        <div class="search-box">
+          <div class="search-1">
+            <span>查看报销单状态:</span>
+            <br>
+            <input type="text" class="col-8" placeholder="请输入报销单编号" id="addnums" onkeydown="searchEnter()">
+            <button type="button" class="btn btn-primary" id="addbtn" onclick="search()">查询</button>
+          </div>
+          <div class="search-text col-8">
+            <p>申请报销人:<span class="input-texts"></span></p>
+            <p>报销单号:<span class="input-texts"></span></p>
+            <p>报销金额:<span class="input-texts"></span></p>
+            <p>报销状态:<span class="input-texts"></span></p>
+          </div>
         </div>
       </div>
 
       <h3>新增报销</h3>
-      <div class="main-text row">
-        <div class="col-6">
-          <p>报销人:</p>
-          <input type="text" placeholder="请输入姓名" id="text1" onkeydown="enter()">
+      <div class="main-text col-10">
+        <div class="row">
+          <div class="col-6">
+            <p>报销人:</p>
+            <input type="text" placeholder="请输入姓名" id="text1" onkeydown="enter()">
+          </div>
+          <div class="col-6">
+            <p>报销单号:</p>
+            <input type="text" placeholder="请输入单号" id="text2" onkeydown="enter()">
+          </div>
+          <div class="col-6">
+            <p>报销金额:</p>
+            <input type="text" placeholder="请输入金额" id="text3" onkeydown="enter()">
+          </div>
+          <div class="col-6">
+            <p>请上传报销凭证:</p>
+            <form class="form-horizontal" enctype='multipart/form-data' method='post' action='javascript:;'>
+              <input type="file" id="choose" />
+            </form>
+          </div>
+          <div class="submit col row justify-content-end">
+            <button type="button" class="btn btn-primary" id="btns">提交</button></div>
         </div>
-        <div class="col-6">
-          <p>报销单号:</p>
-          <input type="text" placeholder="请输入单号" id="text2" onkeydown="enter()">
-        </div>
-        <div class="col-6">
-          <p>报销金额:</p>
-          <input type="text" placeholder="请输入金额" id="text3" onkeydown="enter()">
-        </div>
-        <div class="col-6">
-          <p>请上传报销凭证:</p>
-          <form class="form-horizontal" enctype='multipart/form-data' method='post' action='javascript:;'>
-            <input type="file" id="choose" />
-          </form>
-        </div>
-        <div class="submit col row justify-content-end">
-          <button type="button" class="btn btn-primary" id="btns">提交</button></div>
       </div>
     </div>
-  </div>
   </div>
 
   <script src="./js/index.js" type="text/javascript" charset="utf-8"></script>

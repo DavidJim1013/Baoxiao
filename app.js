@@ -42,9 +42,10 @@ app.post("/getadd", (req, res) => {
             arr.push(reust[i])
             temp = true
             ass = JSON.stringify(arr)
-            client.close()
+            
           }
         }
+        client.close()
         if (temp == true) {
           res.end(ass)
         } else {
