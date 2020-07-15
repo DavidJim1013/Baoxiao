@@ -13,11 +13,12 @@ To do:
 1. 环境 [x]
 2. config [x]
 3. nginx [x]
+4. ssl []
 
 
 
 ## 前端开发 frontEnd
-1. 
+1. 采用boostrap优化样式 []
 2. 
 3. 
 

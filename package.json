@@ -1,7 +1,7 @@
 {
-  "name": "bbbb",
+  "name": "baoxiao",
   "version": "1.0.0",
-  "description": "",
+  "description": "财务报销系统，配合mongodb数据库",
   "main": "app.js",
   "dependencies": {
     "express": "^4.17.1",
@@ -12,9 +12,10 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "David Dai",
   "license": "ISC"
 }

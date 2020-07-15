@@ -1,66 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>审核页面</title>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://ico.z01.com/zico.min.css">
-    <link rel="stylesheet" type="text/css" href="http://baoxiao.daiweijian.cn/css/table.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>审核页面</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://ico.z01.com/zico.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/table.css">
 </head>
+
 <body>
-    <div class="container">
-        <h3>报销系统</h3>
-        <div class="table-responsive">
-        <table class="table table-sm table-hover" style="word-break:break-all;">
-            <div class="bhbtngrp">
-                <button type="button" id='bhbtn2'class="btn btn-primary">查询所有</button>
-                <button type="button" id='bhbtn4'class="btn btn-secondary">查询未审批</button>
-                <button type="button" id='bhbtn' class="btn btn-danger">查询驳回</button>
-                <button type="button" id='bhbtn3'class="btn btn-success">查询通过</button>
-            </div>
-            <thead>
-                <tr><td>报销人</td><td>报销单号</td><td>金额</td><td>报销状态</td><td>查看凭证</td><td>操作</td></tr>
-            </thead>
-            <tbody class="tob" id="tob">   
-                <div class="sss" id="sss">
-                    <div id="btnnone">关闭</div>
-            </div>   
-            </tbody>
-        </table>
+  <div class="container">
+    <h3>报销系统</h3>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover" style="word-break:break-all;">
+        <div class="bhbtngrp">
+          <button type="button" id='bhbtn2' class="btn btn-primary">查询所有</button>
+          <button type="button" id='bhbtn4' class="btn btn-secondary">查询未审批</button>
+          <button type="button" id='bhbtn' class="btn btn-danger">查询驳回</button>
+          <button type="button" id='bhbtn3' class="btn btn-success">查询通过</button>
         </div>
-        <div class="bot row">
-            <div class="col-4">
-                <div class="dataTables_length" id="DataTables_Table_0_length">
-                    <label>
-                        每页
-                        <select id="pageSize" onchange="research(this.options[this.options.selectedIndex].value)">
-                            <option selected="selected" value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                        </select>
-                        条记录
-                    </label>
-                </div>
-            </div>
-            <div class="col-4">
-                <div  id="DataTables_Table_0_info" class="dataTables_info">第 1 至 10 项记录，共 项</div>
-            </div>
-            <div  class="row justify-content-end col-4 nextprevious">
-                <i class="zi zi_pathLeft" zico="向左指"></i> <a id="previousPage" class="" href="#">上一页 </a>
-                <a id="nextPage" class="next" href="#"> 下一页</a><i class="zi zi_pathRight" zico="向右指"></i>
-                <div id="page">
-                    <a>第</a>
-                    <input type="text" id="pageNum" onkeydown="Topage()">
-                    <a>页</a>
-                </div>        
-            </div>
-        </div>
-        <div class="change"><button type="button" id="confirm" class="btn btn-outline-primary">确认修改</button></div>
+        <thead>
+          <tr>
+            <td>报销人</td>
+            <td>报销单号</td>
+            <td>金额</td>
+            <td>报销状态</td>
+            <td>查看凭证</td>
+            <td>操作</td>
+          </tr>
+        </thead>
+        <tbody class="tob" id="tob">
+          <div class="sss" id="sss">
+            <div id="btnnone">关闭</div>
+          </div>
+        </tbody>
+      </table>
     </div>
-    <script src="http://baoxiao.daiweijian.cn/js/table.js" type="text/javascript" charset="utf-8"></script>
+    <div class="bot row">
+      <div class="col-4">
+        <div class="dataTables_length" id="DataTables_Table_0_length">
+          <label>
+            每页
+            <select id="pageSize" onchange="research(this.options[this.options.selectedIndex].value)">
+              <option selected="selected" value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+            条记录
+          </label>
+        </div>
+      </div>
+      <div class="col-4">
+        <div id="DataTables_Table_0_info" class="dataTables_info">第 1 至 10 项记录，共 项</div>
+      </div>
+      <div class="row justify-content-end col-4 nextprevious">
+        <i class="zi zi_pathLeft" zico="向左指"></i> <a id="previousPage" class="" href="#">上一页 </a>
+        <a id="nextPage" class="next" href="#"> 下一页</a><i class="zi zi_pathRight" zico="向右指"></i>
+        <div id="page">
+          <a>第</a>
+          <input type="text" id="pageNum" onkeydown="Topage()">
+          <a>页</a>
+        </div>
+      </div>
+    </div>
+    <div class="change"><button type="button" id="confirm" class="btn btn-outline-primary">确认修改</button></div>
+  </div>
+  <script src="./js/table.js" type="text/javascript" charset="utf-8"></script>
 </body>
+
 </html>
