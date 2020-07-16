@@ -17,6 +17,7 @@ var data = {
   conunts: datas
 }
 
+//获取总项数
 $.ajax({
   type: "post",
   url: url + "getdata",
@@ -31,6 +32,7 @@ $.ajax({
 totalpageCount()
 getData(size, page, datas)
 
+//先清空table，然后根据每页输出个数，页数来输出新的数据。
 function getData(size, page, datas) {
   var tobd = document.querySelector("tbody")
   var data = {
@@ -49,6 +51,7 @@ function getData(size, page, datas) {
       totalpageCount()
       console.log(result)
 
+      //提示没有记录
       if (totalNum == 0) {
         bottomInf()
         alert("没有记录")
@@ -58,6 +61,7 @@ function getData(size, page, datas) {
         var odiv = document.createElement("div")
         odiv.className = 'ping'
         var oimg = document.createElement("img")
+        oimg.className = "img-fluid"
         var sssarr = []
 
         for (let i = 0; i < b.length; i++) {
@@ -104,10 +108,7 @@ function getData(size, page, datas) {
             oimg.src = sssarr[i]
           }
         }
-
         bottomInf()
-
-
       }
     }
   })
@@ -123,6 +124,7 @@ function research(v) {
   getData(size, page, datas)
 }
 
+//转跳指定页数
 function Topage() {
   if (event.keyCode == 13) {
     var newpage = $("#pageNum").val()
@@ -142,6 +144,7 @@ function Topage() {
   }
 }
 
+//底下数据
 function bottomInf() {
   var pageNumBegin = (page - 1) * size + 1;
   var pageNumEnd = page * size
@@ -175,6 +178,7 @@ function bottomInf() {
   $("#pageNum").attr("placeholder", page)
 }
 
+//计算总页数
 function totalpageCount() {
   if (totalNum / size == 0) {
     totalPage = totalNum / size;
@@ -183,6 +187,7 @@ function totalpageCount() {
   }
 }
 
+//更新当前页面信息：当前页数，每页项数，数据
 function dataupdate() {
   data = {
     currentpage: page,
@@ -191,12 +196,13 @@ function dataupdate() {
   }
 }
 
+//监听点击
 $("#btnnone").click(function () {
   var sss = document.querySelector(".sss")
   sss.style.display = "none"
 })
 
-//驳回
+//显示所有驳回
 $('#bhbtn').click(function () {
   $(".tob").empty()
   datas = "1"
@@ -205,7 +211,7 @@ $('#bhbtn').click(function () {
   getData(size, page, datas)
 })
 
-//所有
+//显示所有数据
 $('#bhbtn2').click(function () {
   $(".tob").empty()
   datas = "0"
@@ -214,7 +220,7 @@ $('#bhbtn2').click(function () {
   getData(size, page, datas)
 })
 
-//审批通过
+//显示所有审批通过
 $('#bhbtn3').click(function () {
   $(".tob").empty()
   datas = "3"
@@ -223,7 +229,7 @@ $('#bhbtn3').click(function () {
   getData(size, page, datas)
 })
 
-//未审批
+//显示所有未审批
 $('#bhbtn4').click(function () {
   $(".tob").empty()
   datas = "2"
@@ -257,7 +263,7 @@ $("#previousPage").click(function () {
   }
 })
 
-
+//监听确认修改按钮点击
 $("#confirm").click(function () {
   var ass = []
   var app = []

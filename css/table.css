@@ -84,3 +84,21 @@ strong {
   height: 40px;
   padding: 0;
 }
+
+@media (max-width: 576px) {
+  .container {
+    font-size: 10px;
+  }
+  .bhbtngrp .btn {
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+    padding: 0;
+  }
+  .dataTables_info {
+    font-size: 10px;
+  }
+  table {
+    word-break: keep-all;
+  }
+}

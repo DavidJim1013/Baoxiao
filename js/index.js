@@ -6,6 +6,7 @@ data = request.responseText;
 jsondata = JSON.parse(data);
 url = jsondata["url"]
 
+//判断输入订单号是否为数字，为数字返回true
 function isNum() {
   let a = $("#addnums").val();
   let b = isNaN(a)
@@ -14,13 +15,14 @@ function isNum() {
   } else return true
 }
 
-
+//判断键盘输入是否为回车
 function searchEnter() {
   if (event.keyCode == 13) {
     search()
   }
 }
 
+//遍历数据库，有则输出报销状态
 function search() {
   var inputTexts = $(".input-texts")
   for (let j = 0; j < 4; j++) {
@@ -72,6 +74,7 @@ function search() {
   }
 }
 
+//获取inputs数据，存储图片
 function submit() {
   var texts = {
     name: $("#text1").val(),
@@ -131,11 +134,12 @@ function submit() {
   }
 }
 
-
+//监听点击
 $("#btns").click(() => {
   submit()
 })
 
+//监听回车
 function enter() {
   if (event.keyCode == 13) {
     submit()
