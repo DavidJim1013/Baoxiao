@@ -3,9 +3,32 @@
   padding: 0;
 }
 
-.content-box h3 {
-  padding: 10px 0;
-  border-bottom: 3px solid #ccc;
+.nav {
+  margin-bottom: 20px;
+}
+
+.card {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.alert {
+  margin: 0;
+}
+
+.input-group {
+  padding: 0;
+  margin-bottom: 0!important;
+}
+
+.form-horizontal {
+  position: relative;
+  word-spacing: normal;
 }
 
 .search-1 {
@@ -14,8 +37,11 @@
 }
 
 .search-text {
-  padding: 10px 20px 0 20px;
-  border: 2px solid #ccc;
+  padding: 0 0 0 20px;
+}
+
+.card-body {
+  padding: 0;
 }
 
 .search-1 input {
@@ -30,14 +56,9 @@
   float: right;
 }
 
-.main-text {
-  margin: 20px 0 0 20px;
-  border: 2px solid #ccc;
-}
-
 .main-text input {
   padding: 5px 0;
-  width: 90%;
+  width: 100%;
 }
 
 .main-text div {
@@ -56,25 +77,39 @@ input::placeholder {
   margin: 0;
 }
 
-#btns {
-  padding: 8px 20px;
-}
-
 .notclick {
   pointer-events: none;
 }
 
+#status {
+  border: 1px solid;
+}
+
+.panel {
+  border: 1px solid;
+  border-radius: 0.25rem;
+}
+
+.alert {
+  border: 1px solid;
+  border-bottom-right-radius: 0%;
+  border-bottom-left-radius: 0%;
+}
+
+#statusText {
+  margin: 0;
+}
+
+#forth {
+  padding-left: 0;
+}
+
+#btns {
+  float: right;
+  margin: 10px 30px 10px 0;
+}
+
 @media (max-width: 576px) {
-  .container {
-    font-size: 10px;
-  }
-  #btns {
-    font-size: 10px;
-    padding: 4px 10px;
-  }
-  .search-text {
-    max-width: 100%;
-  }
   .main-text {
     max-width: 90%;
   }

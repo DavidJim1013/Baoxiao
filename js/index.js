@@ -38,20 +38,20 @@ function search() {
       success: (res) => {
         if (res == "0") {
           $("#status").attr("class", "alert alert-danger")
-          document.getElementById("statusText").innerHTML="单号不存在！"
+          document.getElementById("statusText").innerHTML="单号不存在！"
           alert("单号不存在")
         } else {
           var add = []
           var inputTexts = $(".input-texts")
           status = res[0].restf
           if (status == "审批通过"){
-            document.getElementById("statusText").innerHTML="审批已通过！"
+            document.getElementById("statusText").innerHTML="审批已通过！"
             $("#status").attr("class", "alert alert-success")
           } else if (status == "驳回"){
-            document.getElementById("statusText").innerHTML="报销已驳回！"
+            document.getElementById("statusText").innerHTML="报销已驳回！"
             $("#status").attr("class", "alert alert-danger")
           } else if (status == "未审核"){
-            document.getElementById("statusText").innerHTML="报销待审核中！"
+            document.getElementById("statusText").innerHTML="报销待审核中！"
             $("#status").attr("class", "alert alert-warning")
           }
           for (let i = 0; i < res.length; i++) {
