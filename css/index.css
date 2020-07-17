@@ -17,6 +17,13 @@ h3 {
   font-family: "Times New Roman", Times, serif;
 }
 
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+  content: "浏览";
+}
+.custom-file-label::after {
+  content: "浏览";
+}
+
 .alert {
   margin: 0;
 }
@@ -85,6 +92,10 @@ input::placeholder {
   border: 1px solid;
 }
 
+#status2 {
+  border: 1px solid;
+}
+
 .panel {
   border: 1px solid;
   border-radius: 0.25rem;
@@ -99,6 +110,11 @@ input::placeholder {
 #statusText {
   margin: 0;
 }
+
+#statusText2 {
+  margin: 0;
+}
+
 
 #forth {
   padding-left: 0;

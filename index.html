@@ -33,7 +33,7 @@
           <div class="input-group mb-2 col-10">
             <input type="text" class="form-control" placeholder="请输入报销单编号" id="addnums" onkeydown="searchEnter()">
             <div class="input-group-append">
-              <button class="btn btn-outline-primary" type="button" id="addbtn" onclick="search()">查询</button>
+              <button class="btn btn-outline-primary" type="button" id="addbtn" onclick="Null()">查询</button>
             </div>
           </div>
         </div>
@@ -50,6 +50,9 @@
 
     <div class="Xinzeng">
       <h3>报销单新增</h3>
+      <div id="status2" class="alert alert-info" role="alert">
+        <p id="statusText2">请输入以下信息，并按提交按钮</p>
+      </div>
       <div class="card">
         <div class="card-body">
           <li class="list-group-item">
