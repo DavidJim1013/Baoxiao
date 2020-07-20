@@ -46,10 +46,10 @@
             <a class="nav-link" href="javascript:void(0);" onclick="searchPass();">已通过</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="查询报销单号" id="NameOrNum">
+        <div class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="查询姓名或单号" id="NameOrNum" onkeydown="isEnter()">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询</button>
-        </form>
+        </div>
       </div>
     </nav>
     <div class="table-responsive-sm">

@@ -364,3 +364,9 @@ function Lookup() {
   dataupdate()
   getData(size, page, datas)
 }
+
+function isEnter(){
+  if (event.keyCode == 13){
+    Lookup()
+  }
+}
