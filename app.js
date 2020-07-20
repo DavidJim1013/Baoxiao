@@ -115,7 +115,10 @@ app.post("/getdata", async (req, res) => {
     let db = client.db(dbName)
     var d = parseInt(jsondbs.currentpage)
     var f = parseInt(jsondbs.itemsPage)
+    var h = jsondbs.inputs
     var g = parseInt(jsondbs.conunts)
+
+    //console.log(h)
     function gets() {
       db.collection("baoxiao").find({ 'restf': "驳回" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
@@ -155,6 +158,32 @@ app.post("/getdata", async (req, res) => {
         res.send(datass)
       })
     }
+    function gets4() {
+      db.collection("baoxiao").find({ 'oodnumber': h }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+        if (err) {
+          console.log(err)
+          return
+        }
+        console.log(result)
+        let count = await db.collection("baoxiao").find({ 'oodnumber': h }).count()
+        let datass = { count: count, result }
+        client.close()
+        res.send(datass)
+      })
+    }
+    function gets5() {
+      db.collection("baoxiao").find({ 'name': h }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+        if (err) {
+          console.log(err)
+          return
+        }
+        console.log(result)
+        let count = await db.collection("baoxiao").find({ 'name': h }).count()
+        let datass = { count: count, result }
+        client.close()
+        res.send(datass)
+      })
+    }
     function getstow() {
       db.collection("baoxiao").find({}).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
@@ -186,6 +215,14 @@ app.post("/getdata", async (req, res) => {
     //审批通过
     else if (g == 3) {
       gets3()
+      return
+    } 
+    else if (g == 4){
+      gets4()
+      return
+    } 
+    else if (g == 5){
+      gets5()
       return
     } else {
       res.send("0")

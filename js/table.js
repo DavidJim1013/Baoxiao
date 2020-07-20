@@ -10,11 +10,13 @@ var page = 1
 var size = 10
 var totalNum
 var totalPage
+var input
 var datas = '0'
 var data = {
   currentpage: page,
   itemsPage: size,
-  conunts: datas
+  conunts: datas,
+  inputs: input
 }
 
 //获取总项数
@@ -39,6 +41,7 @@ function getData(size, page, datas) {
     currentpage: page,
     itemsPage: size,
     conunts: datas,
+    inputs: input
   }
   $.ajax({
     type: "post",
@@ -113,6 +116,8 @@ function getData(size, page, datas) {
     }
   })
 }
+
+
 
 //每页显示个数改变
 function research(v) {
@@ -192,7 +197,8 @@ function dataupdate() {
   data = {
     currentpage: page,
     itemsPage: size,
-    conunts: datas
+    conunts: datas,
+    inputs: input
   }
 }
 
@@ -200,42 +206,6 @@ function dataupdate() {
 $("#btnnone").click(function () {
   var sss = document.querySelector(".sss")
   sss.style.display = "none"
-})
-
-//显示所有驳回
-$('#bhbtn').click(function () {
-  $(".tob").empty()
-  datas = "1"
-  page = 1
-  dataupdate()
-  getData(size, page, datas)
-})
-
-//显示所有数据
-$('#bhbtn2').click(function () {
-  $(".tob").empty()
-  datas = "0"
-  page = 1
-  dataupdate()
-  getData(size, page, datas)
-})
-
-//显示所有审批通过
-$('#bhbtn3').click(function () {
-  $(".tob").empty()
-  datas = "3"
-  page = 1
-  dataupdate()
-  getData(size, page, datas)
-})
-
-//显示所有未审批
-$('#bhbtn4').click(function () {
-  $(".tob").empty()
-  datas = "2"
-  page = 1
-  dataupdate()
-  getData(size, page, datas)
 })
 
 //下一页
@@ -314,3 +284,83 @@ $("#confirm").click(function () {
     }
   })
 })
+
+
+//显示所有驳回
+function searchReturn() {
+  $("#searchReturn").attr("class", "nav-item active")
+  $("#searchAll").attr("class", "nav-item")
+  $("#searchPass").attr("class", "nav-item")
+  $("#searchUndone").attr("class", "nav-item")
+  $(".tob").empty()
+  datas = "1"
+  page = 1
+  dataupdate()
+  getData(size, page, datas)
+}
+
+//显示所有数据
+function searchAll() {
+  $("#searchAll").attr("class", "nav-item active")
+  $("#searchReturn").attr("class", "nav-item")
+  $("#searchPass").attr("class", "nav-item")
+  $("#searchUndone").attr("class", "nav-item")
+  $(".tob").empty()
+  datas = "0"
+  page = 1
+  dataupdate()
+  getData(size, page, datas)
+}
+
+//显示所有审批通过
+function searchPass() {
+  $("#searchPass").attr("class", "nav-item active")
+  $("#searchAll").attr("class", "nav-item")
+  $("#searchReturn").attr("class", "nav-item")
+  $("#searchUndone").attr("class", "nav-item")
+  $(".tob").empty()
+  datas = "3"
+  page = 1
+  dataupdate()
+  getData(size, page, datas)
+}
+
+//显示所有未审批
+function searchUndone() {
+  $("#searchUndone").attr("class", "nav-item active")
+  $("#searchAll").attr("class", "nav-item")
+  $("#searchPass").attr("class", "nav-item")
+  $("#searchReturn").attr("class", "nav-item")
+  $(".tob").empty()
+  datas = "2"
+  page = 1
+  dataupdate()
+  getData(size, page, datas)
+}
+
+function isRealNum(val) {
+  if (val === "" || val == null) {
+    return false;
+  }
+  if (!isNaN(val)) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function Lookup() {
+  $("#searchAll").attr("class", "nav-item")
+  $("#searchReturn").attr("class", "nav-item")
+  $("#searchPass").attr("class", "nav-item")
+  $("#searchUndone").attr("class", "nav-item")
+  $(".tob").empty()
+  page = 1
+  input = $("#NameOrNum").val()
+  if (isRealNum(input)){
+    datas = "4"
+  } else datas = "5"
+  dataupdate()
+  getData(size, page, datas)
+}

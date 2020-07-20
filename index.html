@@ -30,10 +30,13 @@
       </div>
       <div class="card">
         <div class="card-header bg-light">
-          <div class="input-group mb-2 col-10">
+          <div class="input-group mb-2 ">
             <input type="text" class="form-control" placeholder="请输入报销单编号" id="addnums" onkeydown="searchEnter()">
             <div class="input-group-append">
               <button class="btn btn-outline-primary" type="button" id="addbtn" onclick="Null()">查询</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                新增报销
+              </button>
             </div>
           </div>
         </div>
@@ -48,49 +51,63 @@
       </div>
     </div>
 
-    <div class="Xinzeng">
-      <h3>报销单新增</h3>
-      <div id="status2" class="alert alert-info" role="alert">
-        <p id="statusText2">请输入以下信息，并按提交按钮</p>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <li class="list-group-item">
-            <div class="input-group mb-3 col-10">
-              <div class="input-group-prepend">
-                <span class="input-group-text">报销人&#12288;</span>
-              </div>
-              <input type="text" id="text1" class="form-control" placeholder="请输入姓名" onkeydown="enter()">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">报销单新增</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="status2" class="alert alert-info" role="alert">
+              <p id="statusText2">请输入以下信息，并按提交按钮</p>
             </div>
-          </li>
-          <li class="list-group-item">
-            <div class="input-group mb-3 col-10">
-              <div class="input-group-prepend">
-                <span class="input-group-text">报销单号</span>
+            <div class="card">
+              <div class="card-body">
+                <li class="list-group-item">
+                  <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">报销人&#12288;</span>
+                    </div>
+                    <input type="text" id="text1" class="form-control" placeholder="请输入姓名" onkeydown="enter()">
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">报销单号</span>
+                    </div>
+                    <input type="text" id="text2" class="form-control" placeholder="请输入单号" onkeydown="enter()">
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">报销金额</span>
+                    </div>
+                    <input type="text" id="text3" class="form-control" placeholder="请输入报销金额" onkeydown="enter()">
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">报销凭证</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="choose">
+                      <label class="custom-file-label" for="choose">请选择凭证图片</label>
+                    </div>
+                  </div>
+                </li>
               </div>
-              <input type="text" id="text2" class="form-control" placeholder="请输入单号" onkeydown="enter()">
             </div>
-          </li>
-          <li class="list-group-item">
-            <div class="input-group mb-3 col-10">
-              <div class="input-group-prepend">
-                <span class="input-group-text">报销金额</span>
-              </div>
-              <input type="text" id="text3" class="form-control" placeholder="请输入报销金额" onkeydown="enter()">
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="input-group mb-3 col-10">
-              <div class="input-group-prepend">
-                <span class="input-group-text">报销凭证</span>
-              </div>
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="choose">
-                <label class="custom-file-label" for="choose">请选择凭证图片</label>
-              </div>
-            </div>
-          </li>
-          <button type="button" class="btn btn-primary" id="btns">提交</button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" id="btns">提交</button>
+          </div>
         </div>
       </div>
     </div>

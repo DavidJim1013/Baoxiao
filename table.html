@@ -9,7 +9,6 @@
   <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://ico.z01.com/zico.min.css">
   <link rel="stylesheet" type="text/css" href="./css/table.css">
 </head>
 
@@ -25,15 +24,36 @@
       </li>
     </ul>
 
-    <h3>报销系统</h3>
+    <h3 style="margin-top: 40px;">报销系统</h3>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand" href="#">分类</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active" id="searchAll">
+            <a class="nav-link" href="javascript:void(0);" onclick="searchAll();">所有</a>
+          </li>
+          <li class="nav-item" id="searchUndone">
+            <a class="nav-link" href="javascript:void(0);" onclick="searchUndone();">未审批</a>
+          </li>
+          <li class="nav-item" id="searchReturn">
+            <a class="nav-link" href="javascript:void(0);" onclick="searchReturn();">已驳回</a>
+          </li>
+          <li class="nav-item" id="searchPass">
+            <a class="nav-link" href="javascript:void(0);" onclick="searchPass();">已通过</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="查询报销单号" id="NameOrNum">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询</button>
+        </form>
+      </div>
+    </nav>
     <div class="table-responsive-sm">
       <table class="table table-sm table-hover">
-        <div class="bhbtngrp">
-          <button type="button" id='bhbtn2' class="btn btn-primary">查询所有</button>
-          <button type="button" id='bhbtn4' class="btn btn-secondary">查询未审批</button>
-          <button type="button" id='bhbtn' class="btn btn-danger">查询驳回</button>
-          <button type="button" id='bhbtn3' class="btn btn-success">查询通过</button>
-        </div>
         <thead>
           <tr>
             <td>报销人</td>
@@ -69,8 +89,8 @@
         <div id="DataTables_Table_0_info" class="dataTables_info">第 1 至 10 项记录，共 项</div>
       </div>
       <div class="row justify-content-end col-4 nextprevious">
-        <i class="zi zi_pathLeft" zico="向左指"></i> <a id="previousPage" class="" href="#">上一页 </a>
-        <a id="nextPage" class="next" href="#"> 下一页</a><i class="zi zi_pathRight" zico="向右指"></i>
+        <a id="previousPage" class="" href="#">上一页&nbsp;</a>
+        <a id="nextPage" class="next" href="#">下一页&nbsp;</a>
         <div id="page">
           <a>第</a>
           <input type="text" id="pageNum" onkeydown="Topage()">
