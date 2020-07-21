@@ -7,6 +7,8 @@
   <title>审核页面</title>
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://ico.z01.com/zico.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.6.1/viewer.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.6.1/viewer.js"></script>
   <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -16,7 +18,8 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">报销系统</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
@@ -33,12 +36,36 @@
     </div>
   </nav>
   <div class="container">
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">操作确认</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            是否要修改本页面的审核状态？
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消 <i class="zi zi_undoalt"
+                zico="取消标志"></i></button>
+            <button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">修改并保存 <i class="zi zi_save" zico="保存黑"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; margin-top: 40px;">
       <a class="navbar-brand" href="#">分类</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
+
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active" id="searchAll">
@@ -57,6 +84,7 @@
         <div class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="查询姓名或单号" id="NameOrNum" onkeydown="isEnter()">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询 <i class="zi zi_search" zico="搜索"></i></button>
+          <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-primary" style="margin-left: 10px;">批量操作</button>
         </div>
       </div>
     </nav>
@@ -74,7 +102,6 @@
         </thead>
         <tbody class="tob" id="tob">
           <div class="sss" id="sss">
-            <div id="btnnone">关闭</div>
           </div>
         </tbody>
       </table>
@@ -106,7 +133,6 @@
         </div>
       </div>
     </div>
-    <div class="change"><button type="button" id="confirm" class="btn btn-outline-primary">确认修改</button></div>
   </div>
   <script src="./js/table.js" type="text/javascript" charset="utf-8"></script>
 </body>

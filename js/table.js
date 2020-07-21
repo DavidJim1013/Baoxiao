@@ -95,20 +95,20 @@ function getData(size, page, datas) {
           tr.appendChild(td)
         }
 
-        var sss = document.getElementById("sss")
-        var pings = document.getElementsByClassName("ping")
-        if (pings.length > 1) {
-          sss.removeChild(pings[0])
-        }
-
+        
 
         var a = document.querySelectorAll("strong")
-
         for (let i = 0; i < a.length; i++) {
           a[i].onclick = function () {
-            var sss = document.querySelector(".sss")
-            sss.style.display = "block"
-            oimg.src = sssarr[i]
+            var image = new Image();
+            image.src = sssarr[i]
+            var viewer = new Viewer(image, {
+              hidden: function () {
+                viewer.destroy();
+              },
+            });
+            // image.click();
+            viewer.show();
           }
         }
         bottomInf()
@@ -176,7 +176,7 @@ function bottomInf() {
   }
 
   document.getElementById("DataTables_Table_0_info").innerHTML =
-  "第 "+ page.toString()+ " 页，" + "共 " + totalPage.toString() + " 页 "
+    "第 " + page.toString() + " 页，" + "共 " + totalPage.toString() + " 页 "
   $("#pageNum").attr("placeholder", page)
 }
 
@@ -272,7 +272,7 @@ $("#confirm").click(function () {
     dataType: "json",
     success: (e) => {
       if (e == "0") {
-        alert("写入成功")
+        // alert("写入成功")
         $(".tob").empty()
         getData(size, page, datas)
       } else {
@@ -355,15 +355,15 @@ function Lookup() {
   $(".tob").empty()
   page = 1
   input = $("#NameOrNum").val()
-  if (isRealNum(input)){
+  if (isRealNum(input)) {
     datas = "4"
   } else datas = "5"
   dataupdate()
   getData(size, page, datas)
 }
 
-function isEnter(){
-  if (event.keyCode == 13){
+function isEnter() {
+  if (event.keyCode == 13) {
     Lookup()
   }
 }

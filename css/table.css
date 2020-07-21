@@ -32,11 +32,6 @@ td {
   text-align: center;
 }
 
-.change {
-  text-align: center;
-  margin: 20px 0
-}
-
 .sss {
   z-index: 999;
   position: fixed;
