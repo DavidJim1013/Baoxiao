@@ -10,7 +10,6 @@
 .card {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  margin-bottom: 20px;
 }
 
 h3 {
@@ -88,16 +87,12 @@ input::placeholder {
   margin: 0;
 }
 
-.notclick {
-  pointer-events: none;
-}
-
 #status {
-  border: 1px solid;
+  border: none;
 }
 
 #status2 {
-  border: 1px solid;
+  border: none;
 }
 
 .panel {
@@ -117,16 +112,6 @@ input::placeholder {
 
 #statusText2 {
   margin: 0;
-}
-
-
-#forth {
-  padding-left: 0;
-}
-
-#btns {
-  float: right;
-  margin: 10px 30px 10px 0;
 }
 
 @media (max-width: 576px) {

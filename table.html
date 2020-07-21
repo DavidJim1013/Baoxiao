@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>审核页面</title>
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ico.z01.com/zico.min.css">
   <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -13,19 +14,26 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">报销系统</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link " href="https://baoxiao.daiweijian.cn">报销页面</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="https://baoxiao.daiweijian.cn/table.html">审核页面</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+      </span>
+    </div>
+  </nav>
   <div class="container">
-
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link " href="https://baoxiao.daiweijian.cn">报销页面</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="https://baoxiao.daiweijian.cn/table.html">审核页面</a>
-      </li>
-    </ul>
-
-    <h3 style="margin-top: 40px;">报销系统</h3>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; margin-top: 40px;">
       <a class="navbar-brand" href="#">分类</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,7 +56,7 @@
         </ul>
         <div class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="查询姓名或单号" id="NameOrNum" onkeydown="isEnter()">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询 <i class="zi zi_search" zico="搜索"></i></button>
         </div>
       </div>
     </nav>
@@ -56,12 +64,12 @@
       <table class="table table-sm table-hover">
         <thead>
           <tr>
-            <td>报销人</td>
-            <td>报销单号</td>
-            <td>金额</td>
-            <td>报销状态</td>
-            <td>查看凭证</td>
-            <td>操作</td>
+            <th>姓名</th>
+            <th>单号</th>
+            <th>金额</th>
+            <th>状态</th>
+            <th>凭证</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody class="tob" id="tob">
@@ -81,12 +89,12 @@
               <option value="20">20</option>
               <option value="50">50</option>
             </select>
-            条记录
+            条
           </label>
         </div>
       </div>
       <div class="col-4">
-        <div id="DataTables_Table_0_info" class="dataTables_info">第 1 至 10 项记录，共 项</div>
+        <div id="DataTables_Table_0_info" class="dataTables_info"></div>
       </div>
       <div class="row justify-content-end col-4 nextprevious">
         <a id="previousPage" class="" href="#">上一页&nbsp;</a>

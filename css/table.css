@@ -14,9 +14,21 @@ table {
   margin: 0 auto;
 }
 
+thead{
+  text-align: center;
+}
+
 td {
   padding: 20px;
-  border: 1px solid #cccccc;
+  border: none;
+  text-align: center;
+}
+
+#pageNum{
+  text-align: center;
+}
+
+.dataTables_info{
   text-align: center;
 }
 

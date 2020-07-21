@@ -77,7 +77,7 @@ function getData(size, page, datas) {
           var ipath = document.createElement("td")
           ipath.className = "ipas"
 
-          ipath.innerHTML = '<strong>查看凭证</strong>'
+          ipath.innerHTML = '<strong><i class="zi zi_fileImage" zico="图片文件黑"></i></strong>'
 
           var tr = document.createElement("tr")
           tobd.appendChild(tr)
@@ -91,7 +91,7 @@ function getData(size, page, datas) {
           tr.appendChild(ipath)
           restf = b[i].restf
           var td = document.createElement("td")
-          td.innerHTML = "<select>" + "<option>" + restf + "</option>" + "<option>审批通过</option><option>驳回</option>"
+          td.innerHTML = "<select>" + "<option>" + restf + "</option>" + "<option>通过</option><option>驳回</option>"
           tr.appendChild(td)
         }
 
@@ -176,10 +176,7 @@ function bottomInf() {
   }
 
   document.getElementById("DataTables_Table_0_info").innerHTML =
-    pageNumBegin.toString()
-    + " 至 " + pageNumEnd.toString()
-    + " 项记录，共 " + totalNum.toString() + " 项，" + "共 " + totalPage.toString() + " 页 "
-
+  "第 "+ page.toString()+ " 页，" + "共 " + totalPage.toString() + " 页 "
   $("#pageNum").attr("placeholder", page)
 }
 

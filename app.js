@@ -146,13 +146,13 @@ app.post("/getdata", async (req, res) => {
       })
     }
     function gets3() {
-      db.collection("baoxiao").find({ 'restf': "审批通过" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'restf': "通过" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
         console.log(result)
-        let count = await db.collection("baoxiao").find({ 'restf': "审批通过" }).count()
+        let count = await db.collection("baoxiao").find({ 'restf': "通过" }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
