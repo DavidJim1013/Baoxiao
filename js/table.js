@@ -61,7 +61,8 @@ function getData(size, page, datas) {
       //提示没有记录
       if (totalNum == 0) {
         bottomInf()
-        alert("没有记录")
+        document.getElementById("tips").innerHTML = "此页面无记录！"
+        $("#exampleModalCenter").modal('show')
       } else {
 
         let b = result.result
@@ -75,7 +76,7 @@ function getData(size, page, datas) {
           imgPaths.push(b[i].pic)
           delete b[i].pic
           let ipath = document.createElement("td")
-          ipath.innerHTML = '<strong><i class="zi zi_fileImage" zico="图片文件黑"></strong>'
+          ipath.innerHTML = '<strong><i class="zi zi_fileImage" style= "cursor:pointer" zico="图片文件黑"></strong>'
 
           let tr = document.createElement("tr")
           if (status == "通过") {
@@ -107,19 +108,19 @@ function getData(size, page, datas) {
             td.innerHTML = "<select><option>——</option><option>通过</option><option>驳回</option>"
           }
           tr.appendChild(td)
-
+          
           let btn = document.createElement("td")
           btn.className = "buttons"
           btn.setAttribute ("data-ood",oodnumber)
 
           if (status == "通过") {
-            btn.innerHTML = '<i class="zi zi_times" zico="错号粗黑" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" onclick="updateOne(this,3)"></i>'
+            btn.innerHTML = '<i class="zi zi_times" zico="错号粗黑" title="驳回" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" title="暂定" onclick="updateOne(this,3)"></i>'
           } else if (status == "驳回") {
-            btn.innerHTML = '<i class="zi zi_check" zico="勾" onclick="updateOne(this,1)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" onclick="updateOne(this,3)"></i>'
+            btn.innerHTML = '<i class="zi zi_check" zico="勾" title="通过" onclick="updateOne(this,1)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" title="暂定" onclick="updateOne(this,3)"></i>'
           } else if (status == "未审核") {
-            btn.innerHTML = '<i class="zi zi_check" zico="勾" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" onclick="updateOne(this,3)"></i>'
+            btn.innerHTML = '<i class="zi zi_check" zico="勾" title="通过" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" title="驳回" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" title="暂定" onclick="updateOne(this,3)"></i>'
           } else if (status == "审核中"){
-            btn.innerHTML = '<i class="zi zi_check" zico="勾" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" onclick="updateOne(this,2)"></i>'
+            btn.innerHTML = '<i class="zi zi_check" zico="勾" title="通过" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" title="驳回" onclick="updateOne(this,2)"></i>'
           }
           tr.appendChild(btn)
         }
@@ -162,10 +163,12 @@ function Topage() {
     let newpage = $("#pageNum").val()
     newpage = parseInt(newpage)
     if (newpage == "" || newpage == null || isNaN(newpage)) {
-      alert("页码输入有误")
+      document.getElementById("tips").innerHTML = "页码输入有误！"
+      $("#exampleModalCenter").modal('show')
     }
     else if (newpage < 1 || newpage > totalPage) {
-      alert("页码输入有误")
+      document.getElementById("tips").innerHTML = "页码输入有误！"
+      $("#exampleModalCenter").modal('show')
     }
     else if (newpage == page) {
     }
@@ -224,7 +227,8 @@ function dataupdate() {
 //下一页
 $("#nextPage").click(function () {
   if (page + 1 > totalPage) {
-    alert("已经是最后一页了")
+    document.getElementById("tips").innerHTML = "已经是最后一页了！"
+    $("#exampleModalCenter").modal('show')
   } else {
     $(".tob").empty()
     page++
@@ -237,7 +241,8 @@ $("#nextPage").click(function () {
 //上一页
 $("#previousPage").click(function () {
   if (page == 1) {
-    alert("已经是第一页了")
+    document.getElementById("tips").innerHTML = "已经是第一页了！"
+    $("#exampleModalCenter").modal('show')
   } else {
     $(".tob").empty()
     page--
@@ -310,6 +315,8 @@ $("#confirm").click(function () {
     success: (e) => {
       if (e == "0") {
         // alert("写入成功")
+        document.getElementById("tips").innerHTML = "修改成功！"
+        $("#exampleModalCenter").modal('show')
         $(".tob").empty()
         state = 1
         document.getElementById("popWindow").style.display = "none"
@@ -426,7 +433,6 @@ function updateOne(obj,abc) {
     dataType: "json",
     success: (e) => {
       if (e == "0") {
-        // alert("写入成功")
         $(".tob").empty()
         state = 1
         document.getElementById("popWindow").style.display = "none"

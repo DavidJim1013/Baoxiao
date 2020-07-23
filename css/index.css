@@ -23,6 +23,10 @@ h3 {
   content: "浏览";
 }
 
+#addnums{
+  height: 39px;
+}
+
 .alert {
   margin: 0;
 }
