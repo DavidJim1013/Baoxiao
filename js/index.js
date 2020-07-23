@@ -60,7 +60,7 @@ function search() {
         } else {
           var add = []
           var inputTexts = $(".input-texts")
-          status = res[0].restf
+          status = res[0].status
           if (status == "审批通过") {
             document.getElementById("statusText").innerHTML = "审批已通过！"
             $("#status").attr("class", "alert alert-success")
@@ -110,8 +110,8 @@ function submit() {
     name: $("#text1").val(),
     oodnumber: $("#text2").val(),
     money: parseFloat($("#text3").val()),
-    restf: "未审核",
-    picpath: ""
+    status: "未审核",
+    pic: ""
   }
   let file = document.getElementById("choose").files[0];
   let formData = new FormData();
@@ -142,7 +142,7 @@ function submit() {
       processData: false,
       success: function (data) {
         console.log(data.filePath)
-        texts.picpath = data.filePath;
+        texts.pic = data.filePath;
         $(".newImg").attr("src", data.filePath);
       },
       error: function (err) {
