@@ -16,14 +16,15 @@ h3 {
   font-family: "Times New Roman", Times, serif;
 }
 
-.custom-file-input:lang(en) ~ .custom-file-label::after {
+.custom-file-input:lang(en)~.custom-file-label::after {
   content: "浏览";
 }
+
 .custom-file-label::after {
   content: "浏览";
 }
 
-#addnums{
+#addnums {
   height: 39px;
 }
 
@@ -46,7 +47,7 @@ h3 {
   font-size: 15px;
 }
 
-.Chaxun{
+.Chaxun {
   margin-top: 60px;
 }
 

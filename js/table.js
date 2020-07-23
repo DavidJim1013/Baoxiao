@@ -104,14 +104,14 @@ function getData(size, page, datas) {
             td.innerHTML = "<select><option>——</option><option>审核中</option><option>通过</option>"
           } else if (status == "未审核") {
             td.innerHTML = "<select><option>——</option><option>审核中</option><option>通过</option><option>驳回</option>"
-          } else if (status == "审核中"){
+          } else if (status == "审核中") {
             td.innerHTML = "<select><option>——</option><option>通过</option><option>驳回</option>"
           }
           tr.appendChild(td)
-          
+
           let btn = document.createElement("td")
           btn.className = "buttons"
-          btn.setAttribute ("data-ood",oodnumber)
+          btn.setAttribute("data-ood", oodnumber)
 
           if (status == "通过") {
             btn.innerHTML = '<i class="zi zi_times" zico="错号粗黑" title="驳回" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" title="暂定" onclick="updateOne(this,3)"></i>'
@@ -119,7 +119,7 @@ function getData(size, page, datas) {
             btn.innerHTML = '<i class="zi zi_check" zico="勾" title="通过" onclick="updateOne(this,1)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" title="暂定" onclick="updateOne(this,3)"></i>'
           } else if (status == "未审核") {
             btn.innerHTML = '<i class="zi zi_check" zico="勾" title="通过" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" title="驳回" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" title="暂定" onclick="updateOne(this,3)"></i>'
-          } else if (status == "审核中"){
+          } else if (status == "审核中") {
             btn.innerHTML = '<i class="zi zi_check" zico="勾" title="通过" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" title="驳回" onclick="updateOne(this,2)"></i>'
           }
           tr.appendChild(btn)
@@ -251,25 +251,25 @@ $("#previousPage").click(function () {
   }
 })
 
-$("#showbtn").click(function(){
+$("#showbtn").click(function () {
   let btns = document.getElementsByClassName("buttons")
   let otps = document.getElementsByClassName("options")
-  if (state == 1){
+  if (state == 1) {
     document.getElementById("popWindow").style.display = "block"
-    for (let i = 0; i < btns.length; i++){
+    for (let i = 0; i < btns.length; i++) {
       btns[i].style.display = "none"
       otps[i].style.display = "block"
     }
     state = 2
-  } else{
+  } else {
     document.getElementById("popWindow").style.display = "none"
-    for (let i = 0; i < btns.length; i++){
+    for (let i = 0; i < btns.length; i++) {
       btns[i].style.display = "block"
       otps[i].style.display = "none"
-      state = 1 
+      state = 1
     }
   }
-  
+
 })
 
 //监听确认修改按钮点击
@@ -333,6 +333,7 @@ $("#confirm").click(function () {
 function searchReturn() {
   $("#searchReturn").attr("class", "nav-item active")
   $("#searchAll").attr("class", "nav-item")
+  $("#searchDoing").attr("class", "nav-item")
   $("#searchPass").attr("class", "nav-item")
   $("#searchUndone").attr("class", "nav-item")
   $(".tob").empty()
@@ -345,6 +346,7 @@ function searchReturn() {
 //显示所有数据
 function searchAll() {
   $("#searchAll").attr("class", "nav-item active")
+  $("#searchDoing").attr("class", "nav-item")
   $("#searchReturn").attr("class", "nav-item")
   $("#searchPass").attr("class", "nav-item")
   $("#searchUndone").attr("class", "nav-item")
@@ -358,6 +360,7 @@ function searchAll() {
 //显示所有审批通过
 function searchPass() {
   $("#searchPass").attr("class", "nav-item active")
+  $("#searchDoing").attr("class", "nav-item")
   $("#searchAll").attr("class", "nav-item")
   $("#searchReturn").attr("class", "nav-item")
   $("#searchUndone").attr("class", "nav-item")
@@ -371,6 +374,7 @@ function searchPass() {
 //显示所有未审批
 function searchUndone() {
   $("#searchUndone").attr("class", "nav-item active")
+  $("#searchDoing").attr("class", "nav-item")
   $("#searchAll").attr("class", "nav-item")
   $("#searchPass").attr("class", "nav-item")
   $("#searchReturn").attr("class", "nav-item")
@@ -380,6 +384,20 @@ function searchUndone() {
   dataupdate()
   getData(size, page, datas)
 }
+
+function searchDoing() {
+  $("#searchDoing").attr("class", "nav-item active")
+  $("#searchUndone").attr("class", "nav-item")
+  $("#searchAll").attr("class", "nav-item")
+  $("#searchPass").attr("class", "nav-item")
+  $("#searchReturn").attr("class", "nav-item")
+  $(".tob").empty()
+  datas = "6"
+  page = 1
+  dataupdate()
+  getData(size, page, datas)
+}
+
 
 function isRealNum(val) {
   if (val === "" || val == null) {
@@ -394,6 +412,7 @@ function isRealNum(val) {
 }
 
 function Lookup() {
+  $("#searchDoing").attr("class", "nav-item")
   $("#searchAll").attr("class", "nav-item")
   $("#searchReturn").attr("class", "nav-item")
   $("#searchPass").attr("class", "nav-item")
@@ -415,16 +434,16 @@ function isEnter() {
 }
 
 
-function updateOne(obj,abc) {
+function updateOne(obj, abc) {
   let type = abc
   let father = $(obj).parent()
   let oodNum = $(father).attr("data-ood")
-  
+
   let data = {
-    one : type,
-    two : oodNum
+    one: type,
+    two: oodNum
   }
-  
+
   $.ajax({
     type: "post",
     url: url + "updateOne",

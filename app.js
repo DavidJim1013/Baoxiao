@@ -184,6 +184,19 @@ app.post("/getdata", async (req, res) => {
         res.send(datass)
       })
     }
+    function gets6() {
+      db.collection("baoxiao").find({ 'status': "审核中" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+        if (err) {
+          console.log(err)
+          return
+        }
+        console.log(result)
+        let count = await db.collection("baoxiao").find({ 'status': "审核中" }).count()
+        let datass = { count: count, result }
+        client.close()
+        res.send(datass)
+      })
+    }
     function getstow() {
       db.collection("baoxiao").find({}).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
@@ -224,7 +237,10 @@ app.post("/getdata", async (req, res) => {
     else if (g == 5) {
       gets5()
       return
-    } else {
+    } else if (g == 6) {
+      gets6()
+    }
+    else {
       res.send("0")
     }
 
@@ -265,29 +281,29 @@ app.post("/updata", (req, res) => {
   res.send("0")
 })
 
-app.post("/updateOne", (req, res) =>{
+app.post("/updateOne", (req, res) => {
   let s = ""
   let jsondbs = ""
-  req.on("data", (data)=>{
+  req.on("data", (data) => {
     s = data
   })
-  req.on("end", ()=>{
-    MongoClient.connect(dburl, { useUnifiedTopology : true}, async (err, client) => {
+  req.on("end", () => {
+    MongoClient.connect(dburl, { useUnifiedTopology: true }, async (err, client) => {
       jsondbs = JSON.parse(s)
       let type = jsondbs.one
       let oodnumber = jsondbs.two
       let db = client.db(dbName)
-      var dbtab = { 'oodnumber' : oodnumber}
-      if (type == "1"){
-        await db.collection("baoxiao").updateOne(dbtab, { $set: {"status": "通过"}})
+      var dbtab = { 'oodnumber': oodnumber }
+      if (type == "1") {
+        await db.collection("baoxiao").updateOne(dbtab, { $set: { "status": "通过" } })
         res.send("0")
-      } else if (type == "2"){
-        await db.collection("baoxiao").updateOne(dbtab, { $set: {"status": "驳回"}})
+      } else if (type == "2") {
+        await db.collection("baoxiao").updateOne(dbtab, { $set: { "status": "驳回" } })
         res.send("0")
-      } else if (type == "3"){
-        await db.collection("baoxiao").updateOne(dbtab, { $set: {"status": "审核中"}})
+      } else if (type == "3") {
+        await db.collection("baoxiao").updateOne(dbtab, { $set: { "status": "审核中" } })
         res.send("0")
-      } else{res.send("1")}
+      } else { res.send("1") }
       client.close()
     })
   })

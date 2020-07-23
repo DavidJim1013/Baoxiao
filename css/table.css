@@ -7,14 +7,13 @@ h3 {
   font-family: "Times New Roman", Times, serif;
 }
 
-
 table {
   width: auto;
   border: 1px solid #cccccc;
   margin: 0 auto;
 }
 
-thead{
+thead {
   text-align: center;
 }
 
@@ -23,11 +22,11 @@ td {
   text-align: center;
 }
 
-#pageNum{
+#pageNum {
   text-align: center;
 }
 
-.PageNum_info{
+.PageNum_info {
   text-align: center;
 }
 
@@ -35,7 +34,7 @@ td {
   margin-top: 20px;
 }
 
-.options{
+.options {
   display: none;
 }
 
@@ -44,7 +43,7 @@ td {
   height: 20px;
 }
 
-#popWindow{
+#popWindow {
   display: none;
 }
 
