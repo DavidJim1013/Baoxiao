@@ -25,10 +25,10 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link " href="https://baoxiao.daiweijian.cn">报销页面</a>
+          <a class="nav-link" id="web1" href="https://baoxiao.daiweijian.cn">报销页面</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="https://baoxiao.daiweijian.cn/table.html">审核页面</a>
+          <a class="nav-link active" id="web2" href="https://baoxiao.daiweijian.cn/table.html">审核页面</a>
         </li>
       </ul>
       <span class="navbar-text">
@@ -36,7 +36,6 @@
     </div>
   </nav>
   <div class="container">
-
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -84,31 +83,30 @@
         <div class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="查询姓名或单号" id="NameOrNum" onkeydown="isEnter()">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询 <i class="zi zi_search" zico="搜索"></i></button>
-          <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-primary" style="margin-left: 10px;">批量操作</button>
+          <button type="button"  class="btn btn-outline-primary" id="showbtn" style="margin-left: 10px;">批量操作</button>
+          <button type="button"  class="btn btn-outline-primary" id="popWindow"  data-toggle="modal" data-target="#exampleModal" style="margin-left: 10px;">确认修改</button>
         </div>
       </div>
     </nav>
     <div class="table-responsive-sm">
-      <table class="table table-sm table-hover">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>姓名</th>
             <th>单号</th>
             <th>金额</th>
-            <th>状态</th>
             <th>凭证</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody class="tob" id="tob">
-          <div class="sss" id="sss">
-          </div>
+          <div class="first" id="piliang"></div>
         </tbody>
       </table>
     </div>
     <div class="bot row">
       <div class="col-4">
-        <div class="dataTables_length" id="DataTables_Table_0_length">
+        <div class="NumPerPage_info" id="NumPerPage_info" style="font-size: 14px;">
           <label>
             每页
             <select id="pageSize" onchange="research(this.options[this.options.selectedIndex].value)">
@@ -121,20 +119,17 @@
         </div>
       </div>
       <div class="col-4">
-        <div id="DataTables_Table_0_info" class="dataTables_info"></div>
+        <div id="PageNum_info" class="PageNum_info" style="font-size: 14px;"></div>
       </div>
-      <div class="row justify-content-end col-4 nextprevious">
-        <a id="previousPage" class="" href="#">上一页&nbsp;</a>
-        <a id="nextPage" class="next" href="#">下一页&nbsp;</a>
+      <div class="row justify-content-end col-4">
+        <a id="previousPage" class="" href="#"><i class="zi zi_forLeft" zico="左指"></i>&nbsp;&nbsp;</a>
         <div id="page">
-          <a>第</a>
           <input type="text" id="pageNum" onkeydown="Topage()">
-          <a>页</a>
         </div>
+        <a id="nextPage" class="next" href="#">&nbsp;&nbsp;<i class="zi zi_forRight" zico="右指"></i></a>
       </div>
     </div>
   </div>
   <script src="./js/table.js" type="text/javascript" charset="utf-8"></script>
 </body>
-
 </html>

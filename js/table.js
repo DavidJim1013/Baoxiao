@@ -1,18 +1,22 @@
-var path = "config.json";
-var request = new XMLHttpRequest();
-request.open("GET", path, false);
-request.send();
-urldata = request.responseText;
-jsondata = JSON.parse(urldata);
+let path = "config.json"
+let request = new XMLHttpRequest()
+request.open("GET", path, false)
+request.send()
+urldata = request.responseText
+jsondata = JSON.parse(urldata)
 url = jsondata["url"]
 
-var page = 1
-var size = 10
-var totalNum
-var totalPage
-var input
-var datas = '0'
-var data = {
+document.getElementById("web1").href = url
+document.getElementById("web2").href = url + "table.html"
+
+let page = 1
+let size = 10
+let state = 1
+let totalNum
+let totalPage
+let input
+let datas = '0'
+let data = {
   currentpage: page,
   itemsPage: size,
   conunts: datas,
@@ -36,8 +40,8 @@ getData(size, page, datas)
 
 //先清空table，然后根据每页输出个数，页数来输出新的数据。
 function getData(size, page, datas) {
-  var tobd = document.querySelector("tbody")
-  var data = {
+  let tobd = document.querySelector("tbody")
+  let data = {
     currentpage: page,
     itemsPage: size,
     conunts: datas,
@@ -61,48 +65,71 @@ function getData(size, page, datas) {
       } else {
 
         let b = result.result
-        var odiv = document.createElement("div")
-        odiv.className = 'ping'
-        var oimg = document.createElement("img")
-        oimg.className = "img-fluid"
-        var sssarr = []
+        let imgPaths = []
 
         for (let i = 0; i < b.length; i++) {
           delete b[i]._id
-          var oderdiv = document.querySelector(".sss")
-          sssarr.push(b[i].picpath)
-          delete b[i].picpath
-          odiv.appendChild(oimg)
-          oderdiv.appendChild(odiv)
-          var ipath = document.createElement("td")
-          ipath.className = "ipas"
+          let status = b[i].status
+          let oodnumber = b[i].oodnumber
 
-          ipath.innerHTML = '<strong><i class="zi zi_fileImage" zico="图片文件黑"></i></strong>'
+          imgPaths.push(b[i].pic)
+          delete b[i].pic
+          let ipath = document.createElement("td")
+          ipath.innerHTML = '<strong><i class="zi zi_fileImage" zico="图片文件黑"></strong>'
 
-          var tr = document.createElement("tr")
+          let tr = document.createElement("tr")
+          if (status == "通过") {
+            tr.className = "table-success"
+          } else if (status == "驳回") {
+            tr.className = "table-danger"
+          } else if (status == "未审核" || status == "审核中") {
+            tr.className = "table-warning"
+          }
+          delete b[i].status
           tobd.appendChild(tr)
-          for (var k in b[i]) {
-            var td = document.createElement("td")
+          for (let k in b[i]) {
+            let td = document.createElement("td")
             td.className = "as"
             tr.appendChild(td)
             td.innerHTML = b[i][k]
           }
 
           tr.appendChild(ipath)
-          restf = b[i].restf
-          var td = document.createElement("td")
-          td.innerHTML = "<select>" + "<option>" + restf + "</option>" + "<option>通过</option><option>驳回</option>"
+          let td = document.createElement("td")
+          td.className = "options"
+          if (status == "通过") {
+            td.innerHTML = "<select><option>——</option><option>审核中</option><option>驳回</option>"
+          } else if (status == "驳回") {
+            td.innerHTML = "<select><option>——</option><option>审核中</option><option>通过</option>"
+          } else if (status == "未审核") {
+            td.innerHTML = "<select><option>——</option><option>审核中</option><option>通过</option><option>驳回</option>"
+          } else if (status == "审核中"){
+            td.innerHTML = "<select><option>——</option><option>通过</option><option>驳回</option>"
+          }
           tr.appendChild(td)
+
+          let btn = document.createElement("td")
+          btn.className = "buttons"
+          btn.setAttribute ("data-ood",oodnumber)
+
+          if (status == "通过") {
+            btn.innerHTML = '<i class="zi zi_times" zico="错号粗黑" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" onclick="updateOne(this,3)"></i>'
+          } else if (status == "驳回") {
+            btn.innerHTML = '<i class="zi zi_check" zico="勾" onclick="updateOne(this,1)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" onclick="updateOne(this,3)"></i>'
+          } else if (status == "未审核") {
+            btn.innerHTML = '<i class="zi zi_check" zico="勾" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" onclick="updateOne(this,2)"></i> <i class="zi zi_stopcircle" zico="暂停圆标" onclick="updateOne(this,3)"></i>'
+          } else if (status == "审核中"){
+            btn.innerHTML = '<i class="zi zi_check" zico="勾" onclick="updateOne(this,1)"></i> <i class="zi zi_times" zico="错号粗黑" onclick="updateOne(this,2)"></i>'
+          }
+          tr.appendChild(btn)
         }
 
-        
-
-        var a = document.querySelectorAll("strong")
+        let a = document.querySelectorAll("strong")
         for (let i = 0; i < a.length; i++) {
           a[i].onclick = function () {
-            var image = new Image();
-            image.src = sssarr[i]
-            var viewer = new Viewer(image, {
+            let image = new Image();
+            image.src = imgPaths[i]
+            let viewer = new Viewer(image, {
               hidden: function () {
                 viewer.destroy();
               },
@@ -132,13 +159,15 @@ function research(v) {
 //转跳指定页数
 function Topage() {
   if (event.keyCode == 13) {
-    var newpage = $("#pageNum").val()
+    let newpage = $("#pageNum").val()
     newpage = parseInt(newpage)
     if (newpage == "" || newpage == null || isNaN(newpage)) {
       alert("页码输入有误")
     }
     else if (newpage < 1 || newpage > totalPage) {
       alert("页码输入有误")
+    }
+    else if (newpage == page) {
     }
     else {
       page = newpage
@@ -151,32 +180,25 @@ function Topage() {
 
 //底下数据
 function bottomInf() {
-  var pageNumBegin = (page - 1) * size + 1;
-  var pageNumEnd = page * size
-  if (pageNumEnd > totalNum) {
-    pageNumEnd = totalNum;
-  }
-
   if ((totalPage == 1) || (totalPage == 0)) {
     //如果只有一页，上一步，下一步都为灰色
-    $("#previousPage").css("color", "#AAA");//给上一步加灰色
-    $("#nextPage").css("color", "#AAA");//给下一步加灰色
+    $("#previousPage").css("color", "#AAA")
+    $("#nextPage").css("color", "#AAA")
   } else if (page - 1 < 1) {
     //如果是首页,则给上一步加灰色，下一步变蓝
-    $("#previousPage").css("color", "#AAA");//给上一步加灰色
-    $("#nextPage").css("color", "#00F");//给下一步加蓝色
+    $("#previousPage").css("color", "#AAA")
+    $("#nextPage").css("color", "#00F")
   } else if (page == totalPage) {
     //如果是尾页,则给上一步加蓝色，下一步灰色
-    $("#previousPage").css("color", "#00F");//给上一步标签加蓝色
-    $("#nextPage").css("color", "#AAA");//给下一步标签加灰色
+    $("#previousPage").css("color", "#00F")
+    $("#nextPage").css("color", "#AAA")
   } else {
     //上一步为蓝色，下一步为绿色
-    $("#previousPage").css("color", "#00F");//给上一步加蓝色
-    $("#nextPage").css("color", "#00F");//给下一步加蓝色
+    $("#previousPage").css("color", "#00F")
+    $("#nextPage").css("color", "#00F")
   }
 
-  document.getElementById("DataTables_Table_0_info").innerHTML =
-    "第 " + page.toString() + " 页，" + "共 " + totalPage.toString() + " 页 "
+  document.getElementById("PageNum_info").innerHTML = "第 " + page.toString() + " 页，" + "共 " + totalPage.toString() + " 页 "
   $("#pageNum").attr("placeholder", page)
 }
 
@@ -198,12 +220,6 @@ function dataupdate() {
     inputs: input
   }
 }
-
-//监听点击
-$("#btnnone").click(function () {
-  var sss = document.querySelector(".sss")
-  sss.style.display = "none"
-})
 
 //下一页
 $("#nextPage").click(function () {
@@ -230,15 +246,36 @@ $("#previousPage").click(function () {
   }
 })
 
+$("#showbtn").click(function(){
+  let btns = document.getElementsByClassName("buttons")
+  let otps = document.getElementsByClassName("options")
+  if (state == 1){
+    document.getElementById("popWindow").style.display = "block"
+    for (let i = 0; i < btns.length; i++){
+      btns[i].style.display = "none"
+      otps[i].style.display = "block"
+    }
+    state = 2
+  } else{
+    document.getElementById("popWindow").style.display = "none"
+    for (let i = 0; i < btns.length; i++){
+      btns[i].style.display = "block"
+      otps[i].style.display = "none"
+      state = 1 
+    }
+  }
+  
+})
+
 //监听确认修改按钮点击
 $("#confirm").click(function () {
-  var ass = []
-  var app = []
-  var b
-  var sel = document.querySelectorAll("select")
+  let oodNum = []
+  let newStatus = []
+  let b
+  let sel = document.querySelectorAll("select")
   for (let i = 0; i < sel.length - 1; i++) {
-    var index = sel[i].selectedIndex;
-    app.push(sel[i].options[index].value)
+    let index = sel[i].selectedIndex;
+    newStatus.push(sel[i].options[index].value)
   }
 
   $.ajax({
@@ -253,15 +290,15 @@ $("#confirm").click(function () {
   })
 
   for (let i = 0; i < b.length; i++) {
-    ass.push(b[i].oodnumber)
+    oodNum.push(b[i].oodnumber)
   }
 
-  console.log(ass)
-  console.log(app)
+  console.log(oodNum)
+  console.log(newStatus)
 
-  var selections = {
-    ass1: ass,
-    app1: app
+  let selections = {
+    ass1: oodNum,
+    app1: newStatus
   }
 
   $.ajax({
@@ -274,6 +311,8 @@ $("#confirm").click(function () {
       if (e == "0") {
         // alert("写入成功")
         $(".tob").empty()
+        state = 1
+        document.getElementById("popWindow").style.display = "none"
         getData(size, page, datas)
       } else {
         alert("写入失败")
@@ -366,4 +405,38 @@ function isEnter() {
   if (event.keyCode == 13) {
     Lookup()
   }
+}
+
+
+function updateOne(obj,abc) {
+  let type = abc
+  let father = $(obj).parent()
+  let oodNum = $(father).attr("data-ood")
+  
+  let data = {
+    one : type,
+    two : oodNum
+  }
+  
+  $.ajax({
+    type: "post",
+    url: url + "updateOne",
+    data: JSON.stringify(data),
+    async: false,
+    dataType: "json",
+    success: (e) => {
+      if (e == "0") {
+        // alert("写入成功")
+        $(".tob").empty()
+        state = 1
+        document.getElementById("popWindow").style.display = "none"
+        getData(size, page, datas)
+      } else {
+        alert("写入失败")
+      }
+    }
+
+  })
+
+
 }

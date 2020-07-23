@@ -6,6 +6,9 @@ data = request.responseText;
 jsondata = JSON.parse(data);
 url = jsondata["url"]
 
+document.getElementById("web1").href = url
+document.getElementById("web2").href = url + "table.html"
+
 //判断输入订单号是否为数字，为数字返回true
 function Null() {
   let a = $("#addnums").val();
@@ -106,7 +109,7 @@ function submit() {
   var texts = {
     name: $("#text1").val(),
     oodnumber: $("#text2").val(),
-    money: $("#text3").val(),
+    money: parseFloat($("#text3").val()),
     restf: "未审核",
     picpath: ""
   }

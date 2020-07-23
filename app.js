@@ -120,39 +120,39 @@ app.post("/getdata", async (req, res) => {
 
     //console.log(h)
     function gets() {
-      db.collection("baoxiao").find({ 'restf': "驳回" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'status': "驳回" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
         console.log(result)
-        let count = await db.collection("baoxiao").find({ 'restf': "驳回" }).count()
+        let count = await db.collection("baoxiao").find({ 'status': "驳回" }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function gets2() {
-      db.collection("baoxiao").find({ 'restf': "未审核" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'status': "未审核" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
         console.log(result)
-        let count = await db.collection("baoxiao").find({ 'restf': "未审核" }).count()
+        let count = await db.collection("baoxiao").find({ 'status': "未审核" }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function gets3() {
-      db.collection("baoxiao").find({ 'restf': "通过" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'status': "通过" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
         console.log(result)
-        let count = await db.collection("baoxiao").find({ 'restf': "通过" }).count()
+        let count = await db.collection("baoxiao").find({ 'status': "通过" }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
@@ -216,12 +216,12 @@ app.post("/getdata", async (req, res) => {
     else if (g == 3) {
       gets3()
       return
-    } 
-    else if (g == 4){
+    }
+    else if (g == 4) {
       gets4()
       return
-    } 
-    else if (g == 5){
+    }
+    else if (g == 5) {
       gets5()
       return
     } else {
@@ -250,15 +250,47 @@ app.post("/updata", (req, res) => {
       app = jsondbs.app1
       let db = client.db(dbName)
       for (var i = 0; i < ass.length; i++) {
-        var dbtab = { 'oodnumber': ass[i] }
-        var updateStr = { $set: { "restf": app[i] } };
-        await db.collection("baoxiao").updateOne(dbtab, updateStr)
-        console.log("文档更新成功");
+        if (app[i] == "——") {
+
+        } else {
+          var dbtab = { 'oodnumber': ass[i] }
+          var updateStr = { $set: { "status": app[i] } };
+          await db.collection("baoxiao").updateOne(dbtab, updateStr)
+          console.log("文档更新成功");
+        }
       }
       client.close()
     })
   })
   res.send("0")
+})
+
+app.post("/updateOne", (req, res) =>{
+  let s = ""
+  let jsondbs = ""
+  req.on("data", (data)=>{
+    s = data
+  })
+  req.on("end", ()=>{
+    MongoClient.connect(dburl, { useUnifiedTopology : true}, async (err, client) => {
+      jsondbs = JSON.parse(s)
+      let type = jsondbs.one
+      let oodnumber = jsondbs.two
+      let db = client.db(dbName)
+      var dbtab = { 'oodnumber' : oodnumber}
+      if (type == "1"){
+        await db.collection("baoxiao").updateOne(dbtab, { $set: {"status": "通过"}})
+        res.send("0")
+      } else if (type == "2"){
+        await db.collection("baoxiao").updateOne(dbtab, { $set: {"status": "驳回"}})
+        res.send("0")
+      } else if (type == "3"){
+        await db.collection("baoxiao").updateOne(dbtab, { $set: {"status": "审核中"}})
+        res.send("0")
+      } else{res.send("1")}
+      client.close()
+    })
+  })
 })
 
 //存储报销凭证
