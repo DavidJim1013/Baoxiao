@@ -128,15 +128,19 @@ function getData(size, page, datas) {
         let a = document.querySelectorAll("strong")
         for (let i = 0; i < a.length; i++) {
           a[i].onclick = function () {
-            let image = new Image();
-            image.src = imgPaths[i]
-            let viewer = new Viewer(image, {
-              hidden: function () {
-                viewer.destroy();
-              },
-            });
-            // image.click();
-            viewer.show();
+            disLength = imgPaths[i].length
+            if (imgPaths[i].substring(disLength - 3, disLength) == "pdf") {
+              window.open(url + imgPaths[i]  ,"_blank")  
+            } else {
+              let image = new Image();
+              image.src = imgPaths[i]
+              let viewer = new Viewer(image, {
+                hidden: function () {
+                  viewer.destroy();
+                },
+              });
+              viewer.show();
+            }
           }
         }
         bottomInf()

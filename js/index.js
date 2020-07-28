@@ -6,6 +6,10 @@ data = request.responseText;
 jsondata = JSON.parse(data);
 url = jsondata["url"]
 
+let today = "20200728"
+let stringBacknum
+let backNum = 0
+
 document.getElementById("web1").href = url
 document.getElementById("web2").href = url + "table.html"
 
@@ -103,12 +107,51 @@ $("input[type=file]").change(function () {
   }
 });
 
+function isNewDay(){
+  let a = getToday()
+  if (a == today){
+    today = getToday()
+  } else {
+    today = getToday()
+    backNum = 0
+  }
+}
+
+function getToday(){
+  var year = new Date().getFullYear();//获取完整的年份(4位,1970-????)
+  var month = new Date().getMonth() + 1;//获取当前月份(0-11,0代表1月)
+  var day = new Date().getDate();//获取当前日(1-31)
+  if (month < 10) {
+    month = "0" + month;
+  }
+  if (day < 10) {
+    day = "0" + day;
+  }
+  let dateString = year + month + day;
+  return dateString
+}
+
+function generateNum() {
+  isNewDay()
+  backNum += 1
+  if (backNum < 10){
+    stringBacknum = "000" + backNum
+  } else if (backNum<100){
+    stringBacknum = "00" + backNum
+  } else if (backNum<1000){
+    stringBacknum = "0" + backNum
+  } else if (backNum = 1000){
+    stringBacknum = "1000"
+  }
+  return (today+stringBacknum)
+}
+
 
 //获取inputs数据，存储图片
 function submit() {
   var texts = {
     name: $("#text1").val(),
-    oodnumber: $("#text2").val(),
+    oodnumber: "",
     money: parseFloat($("#text3").val()),
     status: "未审核",
     pic: ""
@@ -121,9 +164,6 @@ function submit() {
   if (texts.name == '') {
     $("#status2").attr("class", "alert alert-danger")
     document.getElementById("statusText2").innerHTML = "报销人姓名不能为空"
-  } else if (texts.oodnumber == '' || !moneyform(texts.oodnumber)) {
-    $("#status2").attr("class", "alert alert-danger")
-    document.getElementById("statusText2").innerHTML = "报销单号输入有误"
   } else if (texts.money == '' || !moneyform(texts.money)) {
     $("#status2").attr("class", "alert alert-danger")
     document.getElementById("statusText2").innerHTML = "报销金额输入有误"
@@ -132,6 +172,8 @@ function submit() {
     document.getElementById("statusText2").innerHTML = "请选择报销凭证图片"
   } else {
 
+    texts.oodnumber = generateNum()
+    
     $.ajax({
       type: 'POST',
       url: url + 'profile',
@@ -157,10 +199,9 @@ function submit() {
       success: (e) => {
         if (e == "0") {
           $("#status2").attr("class", "alert alert-success")
-          document.getElementById("statusText2").innerHTML = "上传成功"
+          document.getElementById("statusText2").innerHTML = "上传成功，请保存你的报销单号：" +"<strong>" + today + stringBacknum + "</strong>"
         } else if (e == "1") {
-          $("#status2").attr("class", "alert alert-warning")
-          document.getElementById("statusText2").innerHTML = "报销单号已存在"
+          submit()
         }
       }
     })
