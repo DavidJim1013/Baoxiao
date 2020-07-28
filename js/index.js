@@ -74,6 +74,9 @@ function search() {
           } else if (status == "未审核") {
             document.getElementById("statusText").innerHTML = "报销待审核中！"
             $("#status").attr("class", "alert alert-warning")
+          } else if (status == "审核中") {
+            document.getElementById("statusText").innerHTML = "报销待审核中！"
+            $("#status").attr("class", "alert alert-warning")
           }
           for (let i = 0; i < res.length; i++) {
             for (const k in res[i]) {
