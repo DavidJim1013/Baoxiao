@@ -4,7 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const MongoClient = require("mongodb").MongoClient;
 const { User } = require('./models')
-const dburl = "mongodb://localhost:1013";
+const dburl = "mongodb://localhost:27017";
 const dbName = "baoxiao"
 const jwt = require('jsonwebtoken')
 const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
@@ -350,6 +350,7 @@ app.post("/index", async (req, res) => {
     res.send({ status: 500, msg: "用户未登录" });
   } else {
     const { id } = jwt.verify(token, SECRET)
+    console.log(id)
     const user = await User.findById(id)
     if (user) {
       res.send({ status: 200, msg: "用户已登录", realname: user.realname });
