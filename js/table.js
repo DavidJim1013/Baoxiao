@@ -8,6 +8,7 @@ url = jsondata["url"]
 
 document.getElementById("web1").href = url
 document.getElementById("web2").href = url + "table.html"
+document.getElementById("dropitem1").href = url + "login.html"
 
 let page = 1
 let size = 10
@@ -130,7 +131,7 @@ function getData(size, page, datas) {
           a[i].onclick = function () {
             disLength = imgPaths[i].length
             if (imgPaths[i].substring(disLength - 3, disLength) == "pdf") {
-              window.open(url + imgPaths[i]  ,"_blank")  
+              window.open(url + imgPaths[i], "_blank")
             } else {
               let image = new Image();
               image.src = imgPaths[i]
@@ -466,6 +467,10 @@ function updateOne(obj, abc) {
     }
 
   })
+}
 
-
+function logout() {
+  localStorage.removeItem("token")
+  alert("已登出")
+  location.href = "/login.html"
 }

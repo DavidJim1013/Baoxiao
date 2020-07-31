@@ -12,6 +12,7 @@ let backNum = 0
 
 document.getElementById("web1").href = url
 document.getElementById("web2").href = url + "table.html"
+document.getElementById("dropitem1").href = url + "login.html"
 
 //判断输入订单号是否为数字，为数字返回true
 function Null() {
@@ -203,6 +204,8 @@ function submit() {
         if (e == "0") {
           $("#status2").attr("class", "alert alert-success")
           document.getElementById("statusText2").innerHTML = "上传成功，请保存你的报销单号：" +"<strong>" + today + stringBacknum + "</strong>"
+          $("#text1").val('') 
+          $("#text3").val('')
         } else if (e == "1") {
           submit()
         }
@@ -215,6 +218,12 @@ function submit() {
 $("#btns").click(() => {
   submit()
 })
+
+function logout(){
+  localStorage.removeItem("token")
+  alert("已登出")
+  location.href="/login.html"
+}
 
 //监听回车
 function enter() {

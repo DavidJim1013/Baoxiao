@@ -3,12 +3,14 @@ let app = express();
 const multer = require('multer');
 const path = require('path');
 const MongoClient = require("mongodb").MongoClient;
+const { User } = require('./models')
 const dburl = "mongodb://localhost:1013";
-var fs = require("fs");
-const e = require("express");
 const dbName = "baoxiao"
+const jwt = require('jsonwebtoken')
+const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
+var bodyParser = require('body-parser')
 app.use(express.static('./'));
-
+app.use(bodyParser.json())
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads')
@@ -307,6 +309,54 @@ app.post("/updateOne", (req, res) => {
       client.close()
     })
   })
+})
+
+app.post('/login', async (req, res) => {
+  console.log(req.body)
+  const user = await User.findOne({
+    username: req.body.username
+  })
+  if (!user) {
+    return res.status(422).send({
+      message: "用户不存在"
+    })
+  }
+
+  const isPasswordValid = require('bcryptjs').compareSync(
+    req.body.password,
+    user.password
+  )
+  if (!isPasswordValid) {
+    return res.status(422).send({
+      message: "密码无效"
+    })
+  }
+
+
+  const token = jwt.sign({
+    id: String(user._id)
+  }, SECRET, {expiresIn:  60 * 60 * 2})
+
+  // 生成token
+  res.send({
+    user,
+    token
+  })
+})
+
+app.post("/index", async (req, res) => {
+  var token = req.body.token;
+  if (token == undefined) {
+    res.send({ status: 500, msg: "用户未登录" });
+  } else {
+    const { id } = jwt.verify(token, SECRET)
+    const user = await User.findById(id)
+    if (user) {
+      res.send({ status: 200, msg: "用户已登录", realname: user.realname });
+    } else {
+      res.send({ status: 400, msg: "用户非法访问" })
+    }
+  }
 })
 
 //存储报销凭证

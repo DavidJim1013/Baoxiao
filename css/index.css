@@ -119,6 +119,18 @@ input::placeholder {
   margin: 0;
 }
 
+#dropitem1{
+  color: black;
+}
+
+.dropleft:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropleft>.dropdown-toggle:active {
+  pointer-events: none;
+}
+
 @media (max-width: 576px) {
   .main-text {
     max-width: 90%;

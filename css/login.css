@@ -1,0 +1,24 @@
+h1{
+    text-align: center;
+    margin: 20px 0;
+}
+
+.card-title{
+    text-align: center;
+}
+
+#loginn{
+    float: right;
+    margin-top: 10px;
+}
+
+#QR{
+    display: none;
+    text-align: center;
+}
+
+.loginQRimg{
+    padding: 3px;
+    margin-bottom: 5px;
+    border: solid 1px;
+}
