@@ -311,6 +311,12 @@ app.post("/updateOne", (req, res) => {
   })
 })
 
+app.alll('/api/user',async(req,res) =>{
+  //查询所有用户
+  const users = await User.find()
+  res.send(users)
+})
+
 app.post('/login', async (req, res) => {
   console.log(req.body)
   const user = await User.findOne({
@@ -352,6 +358,7 @@ app.post("/index", async (req, res) => {
     const { id } = jwt.verify(token, SECRET)
     console.log(id)
     const user = await User.findById(id)
+    console.log(user)
     if (user) {
       res.send({ status: 200, msg: "用户已登录", realname: user.realname });
     } else {
