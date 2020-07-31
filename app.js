@@ -311,7 +311,7 @@ app.post("/updateOne", (req, res) => {
   })
 })
 
-app.alll('/api/user',async(req,res) =>{
+app.post('/user',async(req,res) =>{
   //查询所有用户
   const users = await User.find()
   res.send(users)
