@@ -6,7 +6,7 @@ let path = require('path');
 
 let MongoClient = require("mongodb").MongoClient;
 let { User } = require('./public/js/models')
-let dburl = "mongodb://localhost:27017";
+let dburl = "mongodb://localhost:1013";
 let dbName = "baoxiao"
 
 let jwt = require('jsonwebtoken')
