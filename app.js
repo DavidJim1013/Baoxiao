@@ -1,17 +1,87 @@
 let express = require("express");
 let app = express();
-const multer = require('multer');
-const path = require('path');
-const MongoClient = require("mongodb").MongoClient;
-const { User } = require('./models')
-const dburl = "mongodb://localhost:1013";
-const dbName = "baoxiao"
-const jwt = require('jsonwebtoken')
-const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
-var bodyParser = require('body-parser')
-app.use(express.static('./'));
-app.use(bodyParser.json())
-var storage = multer.diskStorage({
+var fs = require('fs')
+let multer = require('multer');
+let path = require('path');
+
+let MongoClient = require("mongodb").MongoClient;
+let { User } = require('./public/js/models')
+let dburl = "mongodb://localhost:27017";
+let dbName = "baoxiao"
+
+let jwt = require('jsonwebtoken')
+let SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
+
+let cookieParser = require('cookie-parser')
+let bodyParser = require('body-parser')
+let detectCookies = require('./Middleware/detectCookies')
+
+app.use('/public', express.static('public'));
+app.use(bodyParser.json()) 
+app.use(cookieParser())
+
+app.get('/login',function(req,res,next){
+  res.sendFile(__dirname+'/html/login.html')
+})
+
+app.post('/auth', async (req, res) => {
+  let user = await User.findOne({
+    username: req.body.username
+  })
+  if (!user) {
+    return res.status(422).send({
+      message: "用户不存在"
+    })
+  }
+
+  let isPasswordValid = require('bcryptjs').compareSync(
+    req.body.password,
+    user.password
+  )
+
+  if (!isPasswordValid) {
+    return res.status(422).send({
+      message: "密码无效"
+    })
+  }
+  let realname = user.realname
+  let token = jwt.sign({
+    id: String(user._id)
+  }, SECRET, { expiresIn: 60 * 60 * 2 })
+
+  res.cookie('token',token,{
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    path: '/',
+    httpOnly: true
+  })
+  return res.send({
+    realname : realname
+  })
+})
+
+app.use(detectCookies);
+app.use('/uploads', express.static('uploads'));
+
+
+app.get('/shenhe',function(req,res,next){
+  fs.readFile(__dirname + '/html/table.html', 'utf8', (err, text) => {
+        res.send(text);
+    });
+})
+
+app.get('/',function(req,res,next){
+  fs.readFile(__dirname + '/html/index.html', 'utf8', (err, text) => {
+        res.send(text);
+    });
+})
+
+app.get('/baoxiao',function(req,res,next){
+  fs.readFile(__dirname + '/html/index.html', 'utf8', (err, text) => {
+        res.send(text);
+    });
+})
+
+let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads')
   },
@@ -19,11 +89,11 @@ var storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname))
   }
 })
-var upload = multer({ storage: storage })
+let upload = multer({ storage: storage })
 
 //查询报销状态
 app.post("/getadd", (req, res) => {
-  var d
+  let d
   req.on("data", (num) => {
     d = num
   })
@@ -35,9 +105,9 @@ app.post("/getadd", (req, res) => {
       }
       let db = client.db(dbName)
       db.collection("baoxiao").find({}).toArray((err, reust) => {
-        var arr = []
-        var temp = false
-        var ass
+        let arr = []
+        let temp = false
+        let ass
         for (let i = 0; i < reust.length; i++) {
           if (reust[i].oodnumber == d) {
             delete reust[i]._id
@@ -60,7 +130,7 @@ app.post("/getadd", (req, res) => {
 
 //新增报销单
 app.post("/getval", (req, res) => {
-  var jsondbs = ""
+  let jsondbs = ""
   req.on("data", (postvalue) => {
     jsondbs = JSON.parse(postvalue)
   })
@@ -70,8 +140,8 @@ app.post("/getval", (req, res) => {
       return
     }
     let db = client.db(dbName)
-    var d = jsondbs.oodnumber
-    var temp = false
+    let d = jsondbs.oodnumber
+    let temp = false
     db.collection("baoxiao").find({}).toArray((err, reust) => {
       for (let i = 0; i < reust.length; i++) {
         if (reust[i].oodnumber == d) {
@@ -104,7 +174,7 @@ app.post("/getval", (req, res) => {
 
 //显示页面
 app.post("/getdata", async (req, res) => {
-  var jsondbs = ""
+  let jsondbs = ""
   req.on("data", (postvalue) => {
     jsondbs = JSON.parse(postvalue)
     console.log(jsondbs)
@@ -115,10 +185,10 @@ app.post("/getdata", async (req, res) => {
       return
     }
     let db = client.db(dbName)
-    var d = parseInt(jsondbs.currentpage)
-    var f = parseInt(jsondbs.itemsPage)
-    var h = jsondbs.inputs
-    var g = parseInt(jsondbs.conunts)
+    let d = parseInt(jsondbs.currentpage)
+    let f = parseInt(jsondbs.itemsPage)
+    let h = jsondbs.inputs
+    let g = parseInt(jsondbs.conunts)
 
     //console.log(h)
     function gets() {
@@ -252,8 +322,8 @@ app.post("/getdata", async (req, res) => {
 
 //更新报销状态
 app.post("/updata", (req, res) => {
-  var s = ""
-  var jsondbs = ""
+  let s = ""
+  let jsondbs = ""
   req.on("data", (postvalue) => {
     s = postvalue
     // console.log(s)
@@ -262,17 +332,17 @@ app.post("/updata", (req, res) => {
     // console.log(jsondbs)      
     MongoClient.connect(dburl, { useUnifiedTopology: true }, async (err, client) => {
       jsondbs = JSON.parse(s);
-      var ass = []
-      var app = []
+      let ass = []
+      let app = []
       ass = jsondbs.ass1
       app = jsondbs.app1
       let db = client.db(dbName)
-      for (var i = 0; i < ass.length; i++) {
+      for (let i = 0; i < ass.length; i++) {
         if (app[i] == "——") {
 
         } else {
-          var dbtab = { 'oodnumber': ass[i] }
-          var updateStr = { $set: { "status": app[i] } };
+          let dbtab = { 'oodnumber': ass[i] }
+          let updateStr = { $set: { "status": app[i] } };
           await db.collection("baoxiao").updateOne(dbtab, updateStr)
           console.log("文档更新成功");
         }
@@ -295,7 +365,7 @@ app.post("/updateOne", (req, res) => {
       let type = jsondbs.one
       let oodnumber = jsondbs.two
       let db = client.db(dbName)
-      var dbtab = { 'oodnumber': oodnumber }
+      let dbtab = { 'oodnumber': oodnumber }
       if (type == "1") {
         await db.collection("baoxiao").updateOne(dbtab, { $set: { "status": "通过" } })
         res.send("0")
@@ -311,62 +381,6 @@ app.post("/updateOne", (req, res) => {
   })
 })
 
-app.post('/user',async(req,res) =>{
-  //查询所有用户
-  const users = await User.find()
-  res.send(users)
-})
-
-app.post('/login', async (req, res) => {
-  console.log(req.body)
-  const user = await User.findOne({
-    username: req.body.username
-  })
-  if (!user) {
-    return res.status(422).send({
-      message: "用户不存在"
-    })
-  }
-
-  const isPasswordValid = require('bcryptjs').compareSync(
-    req.body.password,
-    user.password
-  )
-  if (!isPasswordValid) {
-    return res.status(422).send({
-      message: "密码无效"
-    })
-  }
-
-
-  const token = jwt.sign({
-    id: String(user._id)
-  }, SECRET, {expiresIn:  60 * 60 * 2})
-
-  // 生成token
-  res.send({
-    user,
-    token
-  })
-})
-
-app.post("/index", async (req, res) => {
-  var token = req.body.token;
-  if (token == undefined) {
-    res.send({ status: 500, msg: "用户未登录" });
-  } else {
-    const { id } = jwt.verify(token, SECRET)
-    console.log(id)
-    const user = await User.findById(id)
-    console.log(user)
-    if (user) {
-      res.send({ status: 200, msg: "用户已登录", realname: user.realname });
-    } else {
-      res.send({ status: 400, msg: "用户非法访问" })
-    }
-  }
-})
-
 //存储报销凭证
 app.post('/profile', upload.single('avatar'), function (req, res, next) {
   res.send({
@@ -374,6 +388,11 @@ app.post('/profile', upload.single('avatar'), function (req, res, next) {
     filePath: 'uploads/' + path.basename(req.file.path)
   });
 });
+
+app.delete('/logout',(req,res)=>{
+  res.clearCookie('token')
+  return res.redirect('/login');
+})
 
 
 app.listen("8081", () => {

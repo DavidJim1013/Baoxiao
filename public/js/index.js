@@ -1,4 +1,4 @@
-var path = "config.json";
+var path = "/public/config.json";
 var request = new XMLHttpRequest();
 request.open("GET", path, false);
 request.send();
@@ -11,8 +11,14 @@ let stringBacknum
 let backNum = 0
 
 document.getElementById("web1").href = url
-document.getElementById("web2").href = url + "table.html"
-document.getElementById("dropitem1").href = url + "login.html"
+document.getElementById("web2").href = url + "shenhe"
+document.getElementById("dropitem1").href = url + "login"
+
+name = localStorage.getItem('name')
+document.getElementById("logStatus").innerHTML = "欢迎，" + name + "!"
+document.getElementById("logStatus").className = "btn btn-success dropdown-toggle"
+document.getElementById("dropitem1").innerHTML = "登出"
+document.getElementById("dropitem1").href = "javascript:logout()"
 
 //判断输入订单号是否为数字，为数字返回true
 function Null() {
@@ -66,7 +72,7 @@ function search() {
           var add = []
           var inputTexts = $(".input-texts")
           status = res[0].status
-          if (status == "审批通过") {
+          if (status == "通过") {
             document.getElementById("statusText").innerHTML = "审批已通过！"
             $("#status").attr("class", "alert alert-success")
           } else if (status == "驳回") {
@@ -111,9 +117,9 @@ $("input[type=file]").change(function () {
   }
 });
 
-function isNewDay(){
+function isNewDay() {
   let a = getToday()
-  if (a == today){
+  if (a == today) {
     today = getToday()
   } else {
     today = getToday()
@@ -121,7 +127,7 @@ function isNewDay(){
   }
 }
 
-function getToday(){
+function getToday() {
   var year = new Date().getFullYear();//获取完整的年份(4位,1970-????)
   var month = new Date().getMonth() + 1;//获取当前月份(0-11,0代表1月)
   var day = new Date().getDate();//获取当前日(1-31)
@@ -138,16 +144,16 @@ function getToday(){
 function generateNum() {
   isNewDay()
   backNum += 1
-  if (backNum < 10){
+  if (backNum < 10) {
     stringBacknum = "000" + backNum
-  } else if (backNum<100){
+  } else if (backNum < 100) {
     stringBacknum = "00" + backNum
-  } else if (backNum<1000){
+  } else if (backNum < 1000) {
     stringBacknum = "0" + backNum
-  } else if (backNum = 1000){
+  } else if (backNum = 1000) {
     stringBacknum = "1000"
   }
-  return (today+stringBacknum)
+  return (today + stringBacknum)
 }
 
 
@@ -177,7 +183,7 @@ function submit() {
   } else {
 
     texts.oodnumber = generateNum()
-    
+
     $.ajax({
       type: 'POST',
       url: url + 'profile',
@@ -203,8 +209,8 @@ function submit() {
       success: (e) => {
         if (e == "0") {
           $("#status2").attr("class", "alert alert-success")
-          document.getElementById("statusText2").innerHTML = "上传成功，请保存你的报销单号：" +"<strong>" + today + stringBacknum + "</strong>"
-          $("#text1").val('') 
+          document.getElementById("statusText2").innerHTML = "上传成功，请保存你的报销单号：" + "<strong>" + today + stringBacknum + "</strong>"
+          $("#text1").val('')
           $("#text3").val('')
         } else if (e == "1") {
           submit()
@@ -219,10 +225,14 @@ $("#btns").click(() => {
   submit()
 })
 
-function logout(){
-  localStorage.removeItem("token")
+function logout() {
+  $.ajax({
+    type:"delete",
+    url: url + "logout",
+  })
+  localStorage.removeItem('name')
   alert("已登出")
-  location.href="/login.html"
+  location.href = "/login"
 }
 
 //监听回车

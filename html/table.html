@@ -5,15 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>审核页面</title>
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/zico.min.css">
-  <link rel="stylesheet" href="./css/viewer.css">
-  <script src="./js/viewer.js"></script>
-  <script src="./js/jquery.min.js"></script>
-  <script src="./js/popper.min.js"></script>
-  <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/token.js"></script>
-  <link rel="stylesheet" type="text/css" href="./css/table.css">
+  <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./public/css/zico.min.css">
+  <link rel="stylesheet" href="./public/css/viewer.css">
+  <script src="./public/js/viewer.js"></script>
+  <script src="./public/js/jquery.min.js"></script>
+  <script src="./public/js/popper.min.js"></script>
+  <script src="./public/js/bootstrap.min.js"></script>
+  <!-- <script src="./public/js/token.js"></script> -->
+  <link rel="stylesheet" type="text/css" href="./public/css/table.css">
 </head>
 
 <body>
@@ -34,7 +34,8 @@
       </ul>
       <span class="navbar-text">
         <div class="btn-group dropleft">
-          <button type="button" class="btn btn-secondary dropdown-toggle" id="logStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn btn-secondary dropdown-toggle" id="logStatus" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             登陆
           </button>
           <div class="dropdown-menu">
@@ -45,7 +46,8 @@
     </div>
   </nav>
   <div class="container">
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -76,7 +78,8 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消 <i class="zi zi_undoalt"
                 zico="取消标志"></i></button>
-            <button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">修改并保存 <i class="zi zi_save" zico="保存黑"></i></button>
+            <button type="button" class="btn btn-primary" id="confirm" data-dismiss="modal">修改并保存 <i class="zi zi_save"
+                zico="保存黑"></i></button>
           </div>
         </div>
       </div>
@@ -109,9 +112,11 @@
         </ul>
         <div class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="查询姓名或单号" id="NameOrNum" onkeydown="isEnter()">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询 <i class="zi zi_search" zico="搜索"></i></button>
-          <button type="button"  class="btn btn-outline-primary" id="showbtn" style="margin-left: 10px;">批量操作</button>
-          <button type="button"  class="btn btn-outline-primary" id="popWindow"  data-toggle="modal" data-target="#exampleModal" style="margin-left: 10px;">确认修改</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="Lookup()">查询 <i
+              class="zi zi_search" zico="搜索"></i></button>
+          <button type="button" class="btn btn-outline-primary" id="showbtn" style="margin-left: 10px;">批量操作</button>
+          <button type="button" class="btn btn-outline-primary" id="popWindow" data-toggle="modal"
+            data-target="#exampleModal" style="margin-left: 10px;">确认修改</button>
         </div>
       </div>
     </nav>
@@ -157,6 +162,7 @@
       </div>
     </div>
   </div>
-  <script src="./js/table.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./public/js/table.js" type="text/javascript" charset="utf-8"></script>
 </body>
+
 </html>

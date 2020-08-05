@@ -1,4 +1,4 @@
-let path = "config.json"
+let path = "/public/config.json"
 let request = new XMLHttpRequest()
 request.open("GET", path, false)
 request.send()
@@ -6,9 +6,15 @@ urldata = request.responseText
 jsondata = JSON.parse(urldata)
 url = jsondata["url"]
 
+name = localStorage.getItem('name')
+document.getElementById("logStatus").innerHTML = "欢迎，" + name + "!"
+document.getElementById("logStatus").className = "btn btn-success dropdown-toggle"
+document.getElementById("dropitem1").innerHTML = "登出"
+document.getElementById("dropitem1").href = "javascript:logout()"
+
 document.getElementById("web1").href = url
-document.getElementById("web2").href = url + "table.html"
-document.getElementById("dropitem1").href = url + "login.html"
+document.getElementById("web2").href = url + "shenhe"
+document.getElementById("dropitem1").href = url + "login"
 
 let page = 1
 let size = 10
@@ -470,7 +476,7 @@ function updateOne(obj, abc) {
 }
 
 function logout() {
-  localStorage.removeItem("token")
+  localStorage.removeItem('name')
   alert("已登出")
-  location.href = "/login.html"
+  location.href = "/login"
 }
