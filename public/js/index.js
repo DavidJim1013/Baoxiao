@@ -174,7 +174,7 @@ function submit() {
   if (texts.name == '') {
     $("#status2").attr("class", "alert alert-danger")
     document.getElementById("statusText2").innerHTML = "报销人姓名不能为空"
-  } else if (texts.money == '' || !moneyform(texts.money)) {
+  } else if (texts.money == '' || !moneyform(texts.money) || !xiaoshu(texts.money)) {
     $("#status2").attr("class", "alert alert-danger")
     document.getElementById("statusText2").innerHTML = "报销金额输入有误"
   } else if (file == null) {
@@ -233,6 +233,19 @@ function logout() {
   localStorage.removeItem('name')
   alert("已登出")
   location.href = "/login"
+}
+
+//判断小数点
+function xiaoshu(money){
+  let a = money.toString()
+  if (a.indexOf('.')==-1){
+    return true
+  }
+  let dot = a.split(".")[1].length
+  if (dot > 2){
+    return false
+  } else return true
+  
 }
 
 //监听回车

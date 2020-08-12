@@ -22,3 +22,9 @@ h1{
     margin-bottom: 5px;
     border: solid 1px;
 }
+
+@media (min-width: 500px){
+    .container {
+        max-width: 540px;
+    }
+}

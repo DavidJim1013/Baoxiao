@@ -30,7 +30,7 @@ app.post('/auth', async (req, res) => {
   })
   if (!user) {
     return res.status(422).send({
-      message: "用户不存在"
+      message: "1"
     })
   }
 
@@ -41,13 +41,13 @@ app.post('/auth', async (req, res) => {
 
   if (!isPasswordValid) {
     return res.status(422).send({
-      message: "密码无效"
+      message: "2"
     })
   }
   let realname = user.realname
   let token = jwt.sign({
     id: String(user._id)
-  }, SECRET, { expiresIn: 60 * 60 * 2 })
+  }, SECRET, { expiresIn: 60 * 60 * 24 * 7 })
 
   res.cookie('token',token,{
     maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -60,6 +60,7 @@ app.post('/auth', async (req, res) => {
 })
 
 app.use(detectCookies);
+
 app.use('/uploads', express.static('uploads'));
 
 

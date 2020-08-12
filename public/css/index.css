@@ -119,7 +119,7 @@ input::placeholder {
   margin: 0;
 }
 
-#dropitem1{
+#dropitem1 {
   color: black;
 }
 
@@ -134,5 +134,11 @@ input::placeholder {
 @media (max-width: 576px) {
   .main-text {
     max-width: 90%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 900px;
   }
 }

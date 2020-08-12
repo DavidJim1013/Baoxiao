@@ -6,15 +6,15 @@ urldata = request.responseText
 jsondata = JSON.parse(urldata)
 url = jsondata["url"]
 
+document.getElementById("web1").href = url
+document.getElementById("web2").href = url + "shenhe"
+document.getElementById("dropitem1").href = url + "login"
+
 name = localStorage.getItem('name')
 document.getElementById("logStatus").innerHTML = "欢迎，" + name + "!"
 document.getElementById("logStatus").className = "btn btn-success dropdown-toggle"
 document.getElementById("dropitem1").innerHTML = "登出"
 document.getElementById("dropitem1").href = "javascript:logout()"
-
-document.getElementById("web1").href = url
-document.getElementById("web2").href = url + "shenhe"
-document.getElementById("dropitem1").href = url + "login"
 
 let page = 1
 let size = 10
@@ -476,6 +476,10 @@ function updateOne(obj, abc) {
 }
 
 function logout() {
+  $.ajax({
+    type:"delete",
+    url: url + "logout",
+  })
   localStorage.removeItem('name')
   alert("已登出")
   location.href = "/login"

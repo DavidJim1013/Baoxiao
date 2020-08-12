@@ -35,7 +35,6 @@ function login() {
     "username": $("#Input1").val(),
     "password": $("#InputPassword1").val()
   }
-  console.log(formData)
   $.ajax({
     type: 'POST',
     url: url + 'auth',
@@ -48,6 +47,14 @@ function login() {
       location.href = "/"
     },
     error: (res) => {
+      let message = res.responseJSON.message
+      if (message == '1'){
+        $('#account').popover('show')
+      }
+      if (message == '2'){
+        $('#account').popover('hide')
+        $('#passwor').popover('show')
+      }
     }
   })
 }
