@@ -6,8 +6,8 @@ urldata = request.responseText
 jsondata = JSON.parse(urldata)
 url = jsondata["url"]
 
-document.getElementById("web1").href = url
-document.getElementById("web2").href = url + "shenhe"
+document.getElementById("web1").href = url + "baoxiao"
+document.getElementById("web2").href = url + "audit"
 document.getElementById("dropitem1").href = url + "login"
 
 name = localStorage.getItem('name')
@@ -33,7 +33,7 @@ let data = {
 //获取总项数
 $.ajax({
   type: "post",
-  url: url + "getdata",
+  url: url + "audit/getdata",
   async: false,
   data: JSON.stringify(data),
   dataType: "json",
@@ -56,7 +56,7 @@ function getData(size, page, datas) {
   }
   $.ajax({
     type: "post",
-    url: url + "getdata",
+    url: url + "audit/getdata",
     data: JSON.stringify(data),
     async: false,
     dataType: "json",
@@ -137,10 +137,10 @@ function getData(size, page, datas) {
           a[i].onclick = function () {
             disLength = imgPaths[i].length
             if (imgPaths[i].substring(disLength - 3, disLength) == "pdf") {
-              window.open(url + imgPaths[i], "_blank")
+              window.open(url + "audit/" + imgPaths[i], "_blank")
             } else {
               let image = new Image();
-              image.src = imgPaths[i]
+              image.src = "audit/"+imgPaths[i]
               let viewer = new Viewer(image, {
                 hidden: function () {
                   viewer.destroy();
@@ -296,7 +296,7 @@ $("#confirm").click(function () {
 
   $.ajax({
     type: "post",
-    url: url + "getdata",
+    url: url + "audit/getdata",
     async: false,
     data: JSON.stringify(data),
     dataType: "json",
@@ -319,7 +319,7 @@ $("#confirm").click(function () {
 
   $.ajax({
     type: "post",
-    url: url + "updata",
+    url: url + "audit/updata",
     data: JSON.stringify(selections),
     async: false,
     dataType: "json",
@@ -457,7 +457,7 @@ function updateOne(obj, abc) {
 
   $.ajax({
     type: "post",
-    url: url + "updateOne",
+    url: url + "audit/updateOne",
     data: JSON.stringify(data),
     async: false,
     dataType: "json",
@@ -478,7 +478,7 @@ function updateOne(obj, abc) {
 function logout() {
   $.ajax({
     type:"delete",
-    url: url + "logout",
+    url: url + "audit/logout",
   })
   localStorage.removeItem('name')
   alert("已登出")

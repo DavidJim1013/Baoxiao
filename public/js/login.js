@@ -6,9 +6,9 @@ data = request.responseText;
 jsondata = JSON.parse(data);
 url = jsondata["url"]
 
-document.getElementById("web1").href = url
+document.getElementById("web1").href = url + "baoxiao"
 document.getElementById("web2").href = url + "shenhe"
-document.getElementById("web3").href = url + "login"
+document.getElementById("web3").href = url + "audit"
 
 function acc() {
   document.getElementById("logintab1").className = "flex-sm-fill text-sm-center nav-link active"
@@ -37,14 +37,14 @@ function login() {
   }
   $.ajax({
     type: 'POST',
-    url: url + 'auth',
+    url: url + 'login/auth',
     data: JSON.stringify(formData),
     dataType: "json",
     contentType: "application/json",
     success: (res) => {
       localStorage.setItem('name',res.realname)
       alert('登陆成功')
-      location.href = "/"
+      location.href = "/baoxiao"
     },
     error: (res) => {
       let message = res.responseJSON.message

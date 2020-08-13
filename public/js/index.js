@@ -10,8 +10,8 @@ let today = "20200728"
 let stringBacknum
 let backNum = 0
 
-document.getElementById("web1").href = url
-document.getElementById("web2").href = url + "shenhe"
+document.getElementById("web1").href = url + "baoxiao"
+document.getElementById("web2").href = url + "audit"
 document.getElementById("dropitem1").href = url + "login"
 
 name = localStorage.getItem('name')
@@ -60,7 +60,7 @@ function search() {
   if (isNum()) {
     $.ajax({
       type: "post",
-      url: url + "getadd",
+      url: url + "baoxiao/getadd",
       async: false,
       data: $("#addnums").val(),
       dataType: "json",
@@ -169,7 +169,6 @@ function submit() {
   let file = document.getElementById("choose").files[0];
   let formData = new FormData();
   formData.append("avatar", file);
-  console.log(formData)
 
   if (texts.name == '') {
     $("#status2").attr("class", "alert alert-danger")
@@ -186,7 +185,7 @@ function submit() {
 
     $.ajax({
       type: 'POST',
-      url: url + 'profile',
+      url: url + 'baoxiao/profile',
       data: formData,
       async: false,
       cache: false,
@@ -203,7 +202,7 @@ function submit() {
     })
     $.ajax({
       type: "post",
-      url: url + "getval",
+      url: url + "baoxiao/getval",
       data: JSON.stringify(texts),
       dataType: "json",
       success: (e) => {
@@ -228,7 +227,7 @@ $("#btns").click(() => {
 function logout() {
   $.ajax({
     type:"delete",
-    url: url + "logout",
+    url: url + "baoxiao/logout",
   })
   localStorage.removeItem('name')
   alert("已登出")
@@ -242,7 +241,7 @@ function xiaoshu(money){
     return true
   }
   let dot = a.split(".")[1].length
-  if (dot > 2){
+  if (dot > 2 && dot != 1){
     return false
   } else return true
   
