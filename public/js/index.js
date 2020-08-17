@@ -11,7 +11,7 @@ let stringBacknum
 let backNum = 0
 
 document.getElementById("web1").href = url + "baoxiao"
-document.getElementById("web2").href = url + "audit"
+document.getElementById("web2").href = "javascript:toAudit()"
 document.getElementById("dropitem1").href = url + "login"
 
 name = localStorage.getItem('name')
@@ -224,12 +224,22 @@ $("#btns").click(() => {
   submit()
 })
 
+function toAudit(){
+  let a = parseInt(localStorage.getItem('authority'))
+  if (a == 1){
+    alert("您没有权限")
+  } else if (a > 1){
+    location.href = "/audit"
+  }
+}
+
 function logout() {
   $.ajax({
     type:"delete",
     url: url + "baoxiao/logout",
   })
   localStorage.removeItem('name')
+  localStorage.removeItem('authority')
   alert("已登出")
   location.href = "/login"
 }

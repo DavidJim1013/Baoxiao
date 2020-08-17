@@ -15,7 +15,6 @@ router.post("/getdata", async (req, res) => {
   let jsondbs = ""
   req.on("data", (postvalue) => {
     jsondbs = JSON.parse(postvalue)
-    console.log(jsondbs)
   })
   MongoClient.connect(dburl, { useUnifiedTopology: true }, async (err, client) => {
     if (err) {
@@ -28,14 +27,12 @@ router.post("/getdata", async (req, res) => {
     let h = jsondbs.inputs
     let g = parseInt(jsondbs.conunts)
 
-    //console.log(h)
     function gets() {
       db.collection("baoxiao").find({ 'status': "驳回" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
-        console.log(result)
         let count = await db.collection("baoxiao").find({ 'status': "驳回" }).count()
         let datass = { count: count, result }
         client.close()
@@ -48,7 +45,6 @@ router.post("/getdata", async (req, res) => {
           console.log(err)
           return
         }
-        console.log(result)
         let count = await db.collection("baoxiao").find({ 'status': "未审核" }).count()
         let datass = { count: count, result }
         client.close()
@@ -61,7 +57,6 @@ router.post("/getdata", async (req, res) => {
           console.log(err)
           return
         }
-        console.log(result)
         let count = await db.collection("baoxiao").find({ 'status': "通过" }).count()
         let datass = { count: count, result }
         client.close()
@@ -74,7 +69,6 @@ router.post("/getdata", async (req, res) => {
           console.log(err)
           return
         }
-        console.log(result)
         let count = await db.collection("baoxiao").find({ 'oodnumber': h }).count()
         let datass = { count: count, result }
         client.close()
@@ -87,7 +81,6 @@ router.post("/getdata", async (req, res) => {
           console.log(err)
           return
         }
-        console.log(result)
         let count = await db.collection("baoxiao").find({ 'name': h }).count()
         let datass = { count: count, result }
         client.close()
@@ -100,7 +93,6 @@ router.post("/getdata", async (req, res) => {
           console.log(err)
           return
         }
-        console.log(result)
         let count = await db.collection("baoxiao").find({ 'status': "审核中" }).count()
         let datass = { count: count, result }
         client.close()
@@ -164,10 +156,8 @@ router.post("/updata", (req, res) => {
   let jsondbs = ""
   req.on("data", (postvalue) => {
     s = postvalue
-    // console.log(s)
   })
-  req.on("end", () => {
-    // console.log(jsondbs)      
+  req.on("end", () => {   
     MongoClient.connect(dburl, { useUnifiedTopology: true }, async (err, client) => {
       jsondbs = JSON.parse(s);
       let ass = []

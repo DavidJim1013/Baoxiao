@@ -29,6 +29,7 @@ router.post('/auth', async (req, res) => {
     })
   }
   let realname = user.realname
+  let authority = user.authority
   let token = jwt.sign({
     id: String(user._id)
   }, SECRET, { expiresIn: 60 * 60 * 24 * 7 })
@@ -39,7 +40,8 @@ router.post('/auth', async (req, res) => {
     httpOnly: true
   })
   return res.send({
-    realname : realname
+    realname : realname,
+    authority : authority
   })
 })
 

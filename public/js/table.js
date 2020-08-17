@@ -63,7 +63,6 @@ function getData(size, page, datas) {
     success: (result) => {
       totalNum = result.count
       totalpageCount()
-      console.log(result)
 
       //提示没有记录
       if (totalNum == 0) {
@@ -244,7 +243,6 @@ $("#nextPage").click(function () {
     $(".tob").empty()
     page++
     dataupdate()
-    console.log(data)
     getData(size, page, datas)
   }
 })
@@ -308,9 +306,6 @@ $("#confirm").click(function () {
   for (let i = 0; i < b.length; i++) {
     oodNum.push(b[i].oodnumber)
   }
-
-  console.log(oodNum)
-  console.log(newStatus)
 
   let selections = {
     ass1: oodNum,
@@ -481,6 +476,7 @@ function logout() {
     url: url + "audit/logout",
   })
   localStorage.removeItem('name')
+  localStorage.removeItem('authority')
   alert("已登出")
   location.href = "/login"
 }

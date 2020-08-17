@@ -43,6 +43,7 @@ function login() {
     contentType: "application/json",
     success: (res) => {
       localStorage.setItem('name',res.realname)
+      localStorage.setItem('authority',res.authority)
       alert('登陆成功')
       location.href = "/baoxiao"
     },
