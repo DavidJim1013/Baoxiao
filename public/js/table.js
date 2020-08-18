@@ -22,12 +22,14 @@ let state = 1
 let totalNum
 let totalPage
 let input
+let authority = localStorage.getItem('authority')
 let datas = '0'
 let data = {
   currentpage: page,
   itemsPage: size,
   conunts: datas,
-  inputs: input
+  inputs: input,
+  authority: authority
 }
 
 //获取总项数
@@ -52,7 +54,8 @@ function getData(size, page, datas) {
     currentpage: page,
     itemsPage: size,
     conunts: datas,
-    inputs: input
+    inputs: input,
+    authority: authority
   }
   $.ajax({
     type: "post",
@@ -76,6 +79,7 @@ function getData(size, page, datas) {
 
         for (let i = 0; i < b.length; i++) {
           delete b[i]._id
+          delete b[i].stage
           let status = b[i].status
           let oodnumber = b[i].oodnumber
 
@@ -447,7 +451,8 @@ function updateOne(obj, abc) {
 
   let data = {
     one: type,
-    two: oodNum
+    two: oodNum,
+    authority: parseInt(authority)
   }
 
   $.ajax({

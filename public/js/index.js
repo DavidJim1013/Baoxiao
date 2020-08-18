@@ -89,7 +89,7 @@ function search() {
             for (const k in res[i]) {
               add.push(res[i][k])
             }
-            for (let j = 0; j < add.length - 1; j++) {
+            for (let j = 0; j < 4; j++) {
               if (j == 2) {
                 inputTexts[j].innerHTML = '¥' + add[j]
               } else inputTexts[j].innerHTML = add[j]
@@ -164,7 +164,8 @@ function submit() {
     oodnumber: "",
     money: parseFloat($("#text3").val()),
     status: "未审核",
-    pic: ""
+    pic: "",
+    stage: "1"
   }
   let file = document.getElementById("choose").files[0];
   let formData = new FormData();
@@ -192,7 +193,6 @@ function submit() {
       contentType: false,
       processData: false,
       success: function (data) {
-        console.log(data.filePath)
         texts.pic = data.filePath;
         $(".newImg").attr("src", data.filePath);
       },
@@ -226,9 +226,9 @@ $("#btns").click(() => {
 
 function toAudit(){
   let a = parseInt(localStorage.getItem('authority'))
-  if (a == 1){
+  if (a == 0){
     alert("您没有权限")
-  } else if (a > 1){
+  } else if (a > 0){
     location.href = "/audit"
   }
 }

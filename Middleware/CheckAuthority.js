@@ -16,7 +16,7 @@ module.exports = (async(req,res,next)=>{
     })
     let { id } = jwt.verify(token, SECRET)
     let user = await User.findById(id)
-    if (user.authority > 1) {
+    if (user.authority > 0) {
       next()
     } else {
       return res.redirect('/baoxiao');

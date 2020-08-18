@@ -15,7 +15,9 @@ router.post("/getdata", async (req, res) => {
   let jsondbs = ""
   req.on("data", (postvalue) => {
     jsondbs = JSON.parse(postvalue)
+    console.log(jsondbs)
   })
+  
   MongoClient.connect(dburl, { useUnifiedTopology: true }, async (err, client) => {
     if (err) {
       console.log(err)
@@ -26,81 +28,82 @@ router.post("/getdata", async (req, res) => {
     let f = parseInt(jsondbs.itemsPage)
     let h = jsondbs.inputs
     let g = parseInt(jsondbs.conunts)
+    let authority = jsondbs.authority
 
     function gets() {
-      db.collection("baoxiao").find({ 'status': "驳回" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'status': "驳回", 'stage': authority }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
-        let count = await db.collection("baoxiao").find({ 'status': "驳回" }).count()
+        let count = await db.collection("baoxiao").find({ 'status': "驳回", 'stage': authority}).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function gets2() {
-      db.collection("baoxiao").find({ 'status': "未审核" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'status': "未审核", 'stage': authority }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
-        let count = await db.collection("baoxiao").find({ 'status': "未审核" }).count()
+        let count = await db.collection("baoxiao").find({ 'status': "未审核", 'stage': authority }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function gets3() {
-      db.collection("baoxiao").find({ 'status': "通过" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'status': "通过", 'stage': authority }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
-        let count = await db.collection("baoxiao").find({ 'status': "通过" }).count()
+        let count = await db.collection("baoxiao").find({ 'status': "通过", 'stage': authority }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function gets4() {
-      db.collection("baoxiao").find({ 'oodnumber': h }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'oodnumber': h, 'stage': authority }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
-        let count = await db.collection("baoxiao").find({ 'oodnumber': h }).count()
+        let count = await db.collection("baoxiao").find({ 'oodnumber': h, 'stage': authority }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function gets5() {
-      db.collection("baoxiao").find({ 'name': h }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'name': h, 'stage': authority }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
-        let count = await db.collection("baoxiao").find({ 'name': h }).count()
+        let count = await db.collection("baoxiao").find({ 'name': h, 'stage': authority }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function gets6() {
-      db.collection("baoxiao").find({ 'status': "审核中" }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({ 'status': "审核中", 'stage': authority }).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
         }
-        let count = await db.collection("baoxiao").find({ 'status': "审核中" }).count()
+        let count = await db.collection("baoxiao").find({ 'status': "审核中", 'stage': authority }).count()
         let datass = { count: count, result }
         client.close()
         res.send(datass)
       })
     }
     function getstow() {
-      db.collection("baoxiao").find({}).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
+      db.collection("baoxiao").find({'stage': authority}).limit(f).skip((d - 1) * f).toArray(async (err, result) => {
         if (err) {
           console.log(err)
           return
@@ -193,9 +196,10 @@ router.post("/updateOne", (req, res) => {
       let type = jsondbs.one
       let oodnumber = jsondbs.two
       let db = client.db(dbName)
+      let stage = (jsondbs.authority+1).toString()
       let dbtab = { 'oodnumber': oodnumber }
       if (type == "1") {
-        await db.collection("baoxiao").updateOne(dbtab, { $set: { "status": "通过" } })
+        await db.collection("baoxiao").updateOne(dbtab, { $set: { "status": "通过", "stage": stage } })
         res.send("0")
       } else if (type == "2") {
         await db.collection("baoxiao").updateOne(dbtab, { $set: { "status": "驳回" } })
